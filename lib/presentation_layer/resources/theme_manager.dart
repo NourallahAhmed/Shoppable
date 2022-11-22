@@ -36,12 +36,12 @@ ThemeData getApplicationTheme() {
     textTheme: TextTheme(
         displayLarge:
             getLightStyle(color: ColorManager.white, fontSize: FontSizes.s22),
-        headline1: getSemiBoldStyle(
+        headlineSmall: getSemiBoldStyle(
             color: ColorManager.darkGrey, fontSize: FontSizes.s16),
-        subtitle1: getMeduimStyle(
+        titleMedium: getMeduimStyle(
             color: ColorManager.lightGrey, fontSize: FontSizes.s14),
-        caption: getRegularStyle(color: ColorManager.grey1),
-        bodyText1: getRegularStyle(color: ColorManager.grey)),
+        headlineMedium: getRegularStyle(color: ColorManager.grey1),
+        labelLarge: getRegularStyle(color: ColorManager.grey)),
 
     // elevated button them
     elevatedButtonTheme: ElevatedButtonThemeData(

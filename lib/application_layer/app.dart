@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/resources/routes_manager.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/resources/theme_manager.dart';
+import 'package:tut_advanced_clean_arch/presentation_layer/splach_screen/splash_screen.dart';
 
 
 ///APP CLASS
@@ -25,6 +26,6 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: RoutesManager.getRoutes ,
         initialRoute: Routes.splashScreen,
         theme:  getApplicationTheme(),
-        home: Container());
+        home: SplashScreen());
   }
 }
