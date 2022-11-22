@@ -1,6 +1,6 @@
-# tut_advanced_clean_arch
+#Shoppable 
 
-A new Flutter project.
+A new Flutter application using clean architecture and fakeStore APi 
 
 ## Getting Started
 
