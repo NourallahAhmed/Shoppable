@@ -6,6 +6,7 @@ import 'package:tut_advanced_clean_arch/presentation_layer/resources/value_manag
 
 ThemeData getApplicationTheme() {
   return ThemeData(
+
     primaryColor: ColorManager.primary,
     primaryColorLight: ColorManager.lightPrimary,
     primaryColorDark: ColorManager.darkPrimary,
@@ -41,6 +42,7 @@ ThemeData getApplicationTheme() {
         titleMedium: getMeduimStyle(
             color: ColorManager.lightGrey, fontSize: FontSizes.s14),
         headlineMedium: getRegularStyle(color: ColorManager.grey1),
+
         labelLarge: getRegularStyle(color: ColorManager.grey)),
 
     // elevated button them

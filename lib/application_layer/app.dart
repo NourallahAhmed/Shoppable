@@ -22,10 +22,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
         debugShowCheckedModeBanner: false,
         onGenerateRoute: RoutesManager.getRoutes ,
         initialRoute: Routes.splashScreen,
         theme:  getApplicationTheme(),
-        home: SplashScreen());
+        home: const SplashScreen());
   }
 }

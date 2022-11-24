@@ -20,21 +20,21 @@ class RoutesManager {
   static Route<dynamic> getRoutes(RouteSettings settings) {
     switch (settings.name) {
       case (Routes.splashScreen):
-        return MaterialPageRoute(builder: (_) => SplashScreen());
+        return MaterialPageRoute(builder: (_) => const SplashScreen());
 
       case (Routes.onBoardingScreen):
-        return MaterialPageRoute(builder: (_) => OnBoardinScreen());
+        return MaterialPageRoute(builder: (_) => const OnBoardingScreen());
 
       case (Routes.loginScreen):
-        return MaterialPageRoute(builder: (_) => LoginScreen());
+        return MaterialPageRoute(builder: (_) => const LoginScreen());
 
       case (Routes.registerScreen):
-        return MaterialPageRoute(builder: (_) => RegisterScreen());
+        return MaterialPageRoute(builder: (_) => const RegisterScreen());
 
       case (Routes.homeScreen):
-        return MaterialPageRoute(builder: (_) => HomeScreen());
+        return MaterialPageRoute(builder: (_) => const HomeScreen());
       case (Routes.detailsScreen):
-        return MaterialPageRoute(builder: (_) => DetailsScreen());
+        return MaterialPageRoute(builder: (_) => const DetailsScreen());
 
       default:
         return MaterialPageRoute(builder: (_) => Scaffold(
