@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/resources/color_manager.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/resources/image_manager.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/resources/routes_manager.dart';
+import 'package:tut_advanced_clean_arch/presentation_layer/resources/value_manager.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   
   
   _setTimer(){
-    _timer = Timer(Duration(seconds: 5), _goNext);
+    _timer = Timer(Duration(seconds: AppDurations.sec5 ), _goNext);
     
   }
   _goNext(){

@@ -26,5 +26,16 @@ class AppSize {
   static const double s18 = 18.0;
   static const double s20 = 20.0;
   static const double s100 = 100.0;
+  static const double s120 = 120.0;
   static const double s150 = 150.0;
+
+  static const double s0 = 0.0 ;
+}
+
+class AppDurations{
+  static  int sec5 = 5;
+  static  int sec10 = 10;
+  static  int sec15 = 15;
+  static int millsec = 300;
+
 }
