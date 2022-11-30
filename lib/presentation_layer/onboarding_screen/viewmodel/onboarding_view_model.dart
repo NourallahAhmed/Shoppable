@@ -72,7 +72,12 @@ class OnboardingViewModel extends BaseViewModel
   }
 
   _postDataToView() => onboardingInputs
-      .add(SliderObjectView(_list[_currentPage], _currentPage, _list.length));
+      .add(
+          SliderObjectView(
+              _list[_currentPage],
+              _currentPage,
+              _list.length)
+        );
 }
 
 abstract class OnboardingViewModelInputs {
