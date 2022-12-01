@@ -13,15 +13,6 @@ class BaseResponse {
 
   @JsonKey(name: "message")
   String? message;
-
-
-  // //fromJson
-  // factory BaseResponse.fromJson(Map<String, dynamic> json) => _$BaseResponseFromJson(json);
-  //
-  //
-  // //toJson
-  // Map<String, dynamic> toJson() => _$BaseResponseToJson(this);
-
 }
 
 @JsonSerializable()
@@ -62,16 +53,17 @@ class ContactsResponse{
 }
 
 @JsonSerializable()
-class LoginResponse extends BaseResponse{
+class AuthenticationResponse extends BaseResponse{
+
   @JsonKey(name: "customer")
   CustomerResponse? customer;
   @JsonKey(name: "contacts")
   ContactsResponse? contacts;
 
-  LoginResponse(this.customer, this.contacts);
+  AuthenticationResponse(this.customer, this.contacts);
 
   //fromJson
-  factory LoginResponse.fromJson(Map<String, dynamic> json) => _$LoginResponseFromJson(json);
+  factory AuthenticationResponse.fromJson(Map<String, dynamic> json) => _$LoginResponseFromJson(json);
 
   //toJson
   Map<String, dynamic> toJson() => _$LoginResponseToJson(this);
