@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:tut_advanced_clean_arch/domain_layer/model/onboardingModels.dart';
+import 'package:tut_advanced_clean_arch/domain_layer/model/onboarding_models.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/view_model_base/base_view_model.dart';
 
 import '../../resources/image_manager.dart';
