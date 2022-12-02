@@ -1,4 +1,4 @@
-##Shoppable 
+## Shoppable 
 
 A new Flutter application using clean architecture and fakeStore APi  and mocklab for users authentication
 
