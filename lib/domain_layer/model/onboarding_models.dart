@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/onboarding_screen/view/onboarding_screen.dart';
 
 class SliderObject {
   String txt;
