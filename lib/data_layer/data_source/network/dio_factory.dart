@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:tut_advanced_clean_arch/application_layer/api_constants.dart';
 
 
@@ -30,6 +32,15 @@ class DioFactory{
       receiveTimeout: _time,
       sendTimeout:  _time
     );
+
+    /// dio logger
+    if(!kReleaseMode){ // in debug mode only
+        dio.interceptors.add(PrettyDioLogger(
+          requestHeader : true ,
+          requestBody  : true ,
+          responseHeader  : true ,
+        ));
+    }
 
     return dio;
   }
