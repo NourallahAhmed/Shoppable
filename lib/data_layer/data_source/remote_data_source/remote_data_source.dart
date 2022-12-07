@@ -1,6 +1,6 @@
 import 'package:tut_advanced_clean_arch/data_layer/models/response_model/login_request.dart';
 import '../../models/response_model/response.dart';
-import '../network_client/network_api.dart';
+import '../network/server_client.dart';
 
 abstract class BaseRemoteDataSource{
   Future<AuthenticationResponse> login(LoginRequest loginRequest);
@@ -8,7 +8,7 @@ abstract class BaseRemoteDataSource{
 
 class RemoteDataSource implements BaseRemoteDataSource{
 
-  final NetworkApi _networkApi;
+  final ServerClient _networkApi;
 
   RemoteDataSource( this._networkApi);
 
@@ -18,3 +18,19 @@ class RemoteDataSource implements BaseRemoteDataSource{
   }
 
 }
+
+
+/*
+    Structure :
+
+      network client  --> login() "Fetch"
+
+
+      remote data source  --> connect with network client
+
+
+      repo --> connect with remote data source or local data source
+
+
+      mappers  --> convert from data model to domain model
+ */

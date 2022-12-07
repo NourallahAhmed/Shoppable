@@ -1,15 +1,15 @@
 
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
-
 import '../../../application_layer/api_constants.dart';
 import '../../models/response_model/response.dart';
-part 'network_api.g.dart';
+
+part 'server_client.g.dart';
 
 @RestApi(baseUrl: ApiConstants.baseUrl)
-abstract class NetworkApi {
+abstract class ServerClient {
 
-  factory NetworkApi(Dio dio, {required String baseUrl}) = _NetworkApi;
+  factory ServerClient(Dio dio, {required String baseUrl}) = _ServerClient;
 
 
   @POST(ApiConstants.loginEndPoint)

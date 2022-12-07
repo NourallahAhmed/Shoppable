@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'network_api.dart';
+part of 'server_client.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'network_api.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
 
-class _NetworkApi implements NetworkApi {
-  _NetworkApi(
+class _ServerClient implements ServerClient {
+  _ServerClient(
     this._dio, {
     this.baseUrl,
   }) {
