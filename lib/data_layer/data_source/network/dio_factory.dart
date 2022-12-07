@@ -3,6 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:tut_advanced_clean_arch/application_layer/api_constants.dart';
 
+import '../../../application_layer/app_pref.dart';
+
 
 /// for headers
 const String APPLICATION_JSON = "application/json";
@@ -14,14 +16,20 @@ const String SEND_TOKEN = "SEND TOKEN HERE";
 
 
 class DioFactory{
+
+  final AppPreferences _appPreferences;
+
+  DioFactory(this._appPreferences);
+
   Future<Dio> getDio() async{
     Dio dio = Dio();
     int _time = 60 * 1000;
-    /// add headers
+
+    String language = await _appPreferences.getAppLanguage();    /// add headers
     Map<String , String> headers = {
       CONTENT_TYPE : APPLICATION_JSON,
       ACCEPT : APPLICATION_JSON,
-      DEFAULT_LANGUAGE : "en",
+      DEFAULT_LANGUAGE : language,
       AUTHORIZATION : SEND_TOKEN,
     };
 
