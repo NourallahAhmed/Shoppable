@@ -12,7 +12,6 @@ const String CONTENT_TYPE = "content-type";
 const String ACCEPT = "accept";
 const String AUTHORIZATION = "authorization";
 const String DEFAULT_LANGUAGE = "langauge";
-const String SEND_TOKEN = "SEND TOKEN HERE";
 
 
 class DioFactory{
@@ -23,26 +22,30 @@ class DioFactory{
 
   Future<Dio> getDio() async{
     Dio dio = Dio();
-    int _time = 60 * 1000;
 
-    String language = await _appPreferences.getAppLanguage();    /// add headers
+
+    /// get the saved language
+    String language = await _appPreferences.getAppLanguage();
+
+
     Map<String , String> headers = {
       CONTENT_TYPE : APPLICATION_JSON,
       ACCEPT : APPLICATION_JSON,
       DEFAULT_LANGUAGE : language,
-      AUTHORIZATION : SEND_TOKEN,
+      AUTHORIZATION : ApiConstants.token,
     };
 
     /// dio_options
+    /// The common config for the Dio instance.
     dio.options = BaseOptions(
       baseUrl:  ApiConstants.baseUrl,
       headers:  headers ,
-      receiveTimeout: _time,
-      sendTimeout:  _time
+      receiveTimeout: ApiConstants.apiTime,
+      sendTimeout:  ApiConstants.apiTime
     );
 
     /// dio logger
-    if(!kReleaseMode){ // in debug mode only
+    if(!kReleaseMode){    // in debug mode only
         dio.interceptors.add(PrettyDioLogger(
           requestHeader : true ,
           requestBody  : true ,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/details_screen/details_screen.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/home_screen/home_screen.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/login_screen/login_screen.dart';
+import 'package:tut_advanced_clean_arch/presentation_layer/login_screen/view/login_screen.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/onboarding_screen/view/onboarding_screen.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/register_screen/register_screen.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/resources/strings_manager.dart';
