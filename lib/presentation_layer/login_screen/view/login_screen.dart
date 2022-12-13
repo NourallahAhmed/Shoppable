@@ -4,6 +4,7 @@ import 'package:tut_advanced_clean_arch/presentation_layer/resources/color_manag
 import 'package:tut_advanced_clean_arch/presentation_layer/resources/value_manager.dart';
 
 import '../../resources/image_manager.dart';
+import '../../resources/routes_manager.dart';
 import '../../resources/strings_manager.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -117,13 +118,19 @@ class _LoginScreenState extends State<LoginScreen> {
             Padding(
                 padding: const EdgeInsets.only(
                     left: AppPadding.p28, right: AppPadding.p28),
-                child: StreamBuilder<bool>(builder: (context, snapshot) {
-                  return SizedBox(
-                    height: AppSize.s50,
-                    width: double.infinity,
-                    child: ElevatedButton(
-                        onPressed: () {}, child: Text(StringsManager.login)),
-                  );
+                child: StreamBuilder<bool>(
+
+                    stream: _loginViewModel.isAllInputsValid,
+                    builder: (context, snapshot) {
+
+                        return SizedBox(
+                          height: AppSize.s50,
+                          width: double.infinity,
+                          child: ElevatedButton(
+                              onPressed:
+
+                              (snapshot.data ?? false  ) ?  () { Navigator.pushReplacementNamed(context, Routes.homeScreen);} : null , child: Text(StringsManager.login)),
+                        );
                 })),
 
             //forget password and register
@@ -137,13 +144,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () => Navigator.pushReplacementNamed(context, Routes.forgetPasswordScreen),
                       child: Text(
                         StringsManager.forgetPassword,
                         style: Theme.of(context).textTheme.bodySmall,
                       )),
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () => Navigator.pushReplacementNamed(context, Routes.registerScreen),
                       child: Text(
                         StringsManager.register,
                         style: Theme.of(context).textTheme.bodySmall,
