@@ -8,7 +8,7 @@ import 'package:tut_advanced_clean_arch/presentation_layer/resources/strings_man
 import 'package:tut_advanced_clean_arch/presentation_layer/splach_screen/splash_screen.dart';
 
 class Routes {
-  static const splashScreen = "/"; //main page
+  static const splashScreen = "/";    ///  main page
   static const onBoardingScreen = "/onBoarding";
   static const loginScreen = "/login";
   static const registerScreen = "/register";

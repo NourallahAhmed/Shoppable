@@ -40,7 +40,7 @@ ThemeData getApplicationTheme() {
         headlineSmall: getRegularStyle(
             color: ColorManager.grey, fontSize: FontSizes.s14),
         titleMedium: getMeduimStyle(
-            color: ColorManager.white, fontSize: FontSizes.s14),
+            color: ColorManager.primary, fontSize: FontSizes.s14),
         headlineMedium: getRegularStyle(color: ColorManager.grey1),
 
         labelLarge: getRegularStyle(color: ColorManager.grey)),
@@ -68,13 +68,13 @@ ThemeData getApplicationTheme() {
         // enabled border style
         enabledBorder: OutlineInputBorder(
             borderSide:
-                BorderSide(color: ColorManager.primary, width: AppSize.s1_5),
+                BorderSide(color: ColorManager.grey, width: AppSize.s1_5),
             borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8))),
 
         // focused border style
         focusedBorder: OutlineInputBorder(
             borderSide:
-                BorderSide(color: ColorManager.grey, width: AppSize.s1_5),
+                BorderSide(color: ColorManager.primary, width: AppSize.s1_5),
             borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8))),
 
         // error border style
@@ -87,5 +87,8 @@ ThemeData getApplicationTheme() {
             borderSide:
                 BorderSide(color: ColorManager.primary, width: AppSize.s1_5),
             borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)))),
+
+
+
   );
 }

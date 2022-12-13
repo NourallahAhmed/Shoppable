@@ -19,13 +19,13 @@ class LoginViewModel
 
 
   // useCase object
-  final LoginUseCase _loginUseCase;
+  // final LoginUseCase _loginUseCase;
 
   //data class
   LoginObject _loginObject = LoginObject("", "");
 
 
-  LoginViewModel(this._loginUseCase);
+  LoginViewModel(/*this._loginUseCase*/);
 
   @override
   void dispose() {
@@ -41,7 +41,7 @@ class LoginViewModel
   ///Input Actions
   @override
   login() async {
-    await _loginUseCase.execute(LoginUseCaseInput(_loginObject.userName , _loginObject.password));
+    // await _loginUseCase.execute(LoginUseCaseInput(_loginObject.userName , _loginObject.password));
   }
 
   @override
@@ -53,13 +53,13 @@ class LoginViewModel
   @override
   setPassword(String password) {
     _passwordStreamController.add(password);
-    _loginObject.copyWith(password: password);
+    _loginObject = _loginObject.copyWith(password: password);
   }
 
   @override
   setUserName(String userName) {
     _userNameStreamController.add(userName);
-    _loginObject.copyWith(userName: userName);
+    _loginObject = _loginObject.copyWith(userName: userName);
   }
 
   /// OutPuts

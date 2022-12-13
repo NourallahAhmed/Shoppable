@@ -8,9 +8,9 @@ import 'package:tut_advanced_clean_arch/presentation_layer/splach_screen/splash_
 class MyApp extends StatelessWidget {
 
   //Named Constructor
-  MyApp._internal();
+  const MyApp._internal();
 
-  static final  MyApp  instance =   MyApp._internal();
+  static const  MyApp  instance =   MyApp._internal();
 
   /*
    Factory constructors return an instance of the class, but it doesn't necessarily create a new instance.
