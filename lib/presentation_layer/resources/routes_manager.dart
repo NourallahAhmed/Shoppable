@@ -7,6 +7,7 @@ import 'package:tut_advanced_clean_arch/presentation_layer/register_screen/regis
 import 'package:tut_advanced_clean_arch/presentation_layer/resources/strings_manager.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/splach_screen/splash_screen.dart';
 
+import '../../application_layer/dependency_injection.dart';
 import '../forgetpassword_screen/view/forgetpassword_screen.dart';
 
 class Routes {
@@ -26,9 +27,12 @@ class RoutesManager {
         return MaterialPageRoute(builder: (_) => const SplashScreen());
 
       case (Routes.onBoardingScreen):
+
         return MaterialPageRoute(builder: (_) => const OnBoardingScreen());
 
       case (Routes.loginScreen):
+
+        initLoginModule();
         return MaterialPageRoute(builder: (_) => const LoginScreen());
 
       case (Routes.registerScreen):

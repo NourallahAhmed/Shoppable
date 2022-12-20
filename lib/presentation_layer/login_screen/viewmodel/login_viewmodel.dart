@@ -22,13 +22,13 @@ class LoginViewModel
 
 
   // useCase object
-  // final LoginUseCase _loginUseCase;
+  final LoginUseCase _loginUseCase;
 
   //data class
   LoginObject _loginObject = LoginObject("", "");
 
 
-  LoginViewModel(/*this._loginUseCase*/);
+  LoginViewModel(this._loginUseCase);
 
   @override
   void dispose() {
