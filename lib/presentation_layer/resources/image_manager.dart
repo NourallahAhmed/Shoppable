@@ -2,10 +2,16 @@
 import 'package:flutter/material.dart';
 
 var baseImageURL = "assets/images";
+var baseJsonURL = "assets/json";
+
 class ImageManager{
   static String logo = "${baseImageURL}/shopping-cart.png";
 }
-
+class JsonManager{
+  static String emptyJson = "${baseJsonURL}/empty.json";
+  static String loadingJson = "${baseJsonURL}/loading.json";
+  static String errorJson = "${baseJsonURL}/error.json";
+}
 class IconManager{
   static IconData shopingCart =  Icons.shopping_bag_outlined;
   static IconData deliveryIcon =  Icons.delivery_dining;

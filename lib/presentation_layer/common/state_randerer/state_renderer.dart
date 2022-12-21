@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/resources/value_manager.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/strings_manager.dart';
@@ -97,10 +98,11 @@ class StateRenderer extends StatelessWidget {
     );
   }
 
-  Widget getAnimatedImage(String imageName) {
+  Widget getAnimatedImage(String animationName) {
     return SizedBox(
-      child: Container(), //todo: lattie.assets
-    );
+        height: AppSize.s100,
+        width: AppSize.s100,
+        child: Lottie.asset(animationName));
   }
 
   Widget getErrorMessage(String error, BuildContext context) {
