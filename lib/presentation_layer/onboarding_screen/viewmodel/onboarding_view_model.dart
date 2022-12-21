@@ -58,15 +58,15 @@ class OnboardingViewModel extends BaseViewModel
     return [
       SliderObject(
         icon: IconManager.shopingCart,
-        txt: StringsManager.onBoarding1,
+        txt: AppStrings.onBoarding1,
       ),
       SliderObject(
         icon: IconManager.deliveryIcon,
-        txt: StringsManager.onBoarding3,
+        txt: AppStrings.onBoarding3,
       ),
       SliderObject(
         icon: IconManager.shopingCart,
-        txt: StringsManager.onBoarding2,
+        txt: AppStrings.onBoarding2,
       ),
     ];
   }

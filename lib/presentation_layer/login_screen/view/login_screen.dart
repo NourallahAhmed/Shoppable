@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tut_advanced_clean_arch/application_layer/dependency_injection.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/login_screen/viewmodel/login_viewmodel.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/resources/color_manager.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/resources/value_manager.dart';
 
 import '../../resources/image_manager.dart';
@@ -76,11 +75,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             keyboardType: TextInputType.emailAddress,
                             controller: _userNameController,
                             decoration: InputDecoration(
-                                label: Text(StringsManager.useName),
-                                hintText: StringsManager.useName,
+                                label: Text(AppStrings.useName),
+                                hintText: AppStrings.useName,
                                 errorText: (snapShot.data ?? true)
                                     ? null
-                                    : StringsManager.useNameError),
+                                    : AppStrings.useNameError),
                           );
                         },
                       )),
@@ -100,11 +99,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             keyboardType: TextInputType.visiblePassword,
                             controller: _passwordController,
                             decoration: InputDecoration(
-                                label: Text(StringsManager.password),
-                                hintText: StringsManager.password,
+                                label: Text(AppStrings.password),
+                                hintText: AppStrings.password,
                                 errorText: (snapShot.data ?? true)
                                     ? null
-                                    : StringsManager.passwordError),
+                                    : AppStrings.passwordError),
                           );
                         },
                       )),
@@ -121,17 +120,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.only(
                     left: AppPadding.p28, right: AppPadding.p28),
                 child: StreamBuilder<bool>(
-
                     stream: _loginViewModel.isAllInputsValid,
                     builder: (context, snapshot) {
-
                         return SizedBox(
                           height: AppSize.s50,
                           width: double.infinity,
                           child: ElevatedButton(
                               onPressed:
-
-                              (snapshot.data ?? false  ) ?  () { Navigator.pushReplacementNamed(context, Routes.homeScreen);} : null , child: Text(StringsManager.login)),
+                              (snapshot.data ?? false  )
+                                  ? () {
+                                    Navigator.pushReplacementNamed(context, Routes.homeScreen);
+                                    }
+                                  : null ,
+                              child: Text(AppStrings.login)),
                         );
                 })),
 
@@ -148,13 +149,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   TextButton(
                       onPressed: () => Navigator.pushReplacementNamed(context, Routes.forgetPasswordScreen),
                       child: Text(
-                        StringsManager.forgetPassword,
+                        AppStrings.forgetPassword,
                         style: Theme.of(context).textTheme.bodySmall,
                       )),
                   TextButton(
                       onPressed: () => Navigator.pushReplacementNamed(context, Routes.registerScreen),
                       child: Text(
-                        StringsManager.register,
+                        AppStrings.register,
                         style: Theme.of(context).textTheme.bodySmall,
                       )),
                 ],

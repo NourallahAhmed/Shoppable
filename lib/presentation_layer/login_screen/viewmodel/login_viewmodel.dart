@@ -15,7 +15,6 @@ class LoginViewModel
       StreamController<String>.broadcast();
   final StreamController _passwordStreamController =
       StreamController<String>.broadcast();
-
   final StreamController _isAllInputsValidStreamController =
       StreamController<void>.broadcast();
 
@@ -26,7 +25,6 @@ class LoginViewModel
 
   //data class
   LoginObject _loginObject = LoginObject("", "");
-
 
   LoginViewModel(this._loginUseCase);
 
@@ -45,7 +43,7 @@ class LoginViewModel
   ///Input Actions
   @override
   login() async {
-    // await _loginUseCase.execute(LoginUseCaseInput(_loginObject.userName , _loginObject.password));
+    await _loginUseCase.execute(LoginUseCaseInput(_loginObject.userName , _loginObject.password));
   }
 
   @override
@@ -55,11 +53,13 @@ class LoginViewModel
   Sink get userNameInput => _userNameStreamController.sink;
 
   @override
+  Sink get isAllInputs => _isAllInputsValidStreamController.sink;
+
+  @override
   setPassword(String password) {
     _passwordStreamController.add(password);
-    _loginObject = _loginObject.copyWith(password: password);
+    _loginObject = _loginObject.copyWith(password: password); ///Frezzed
     _isAllInputsValidStreamController.add(null);
-
   }
 
   @override
@@ -68,6 +68,9 @@ class LoginViewModel
     _loginObject = _loginObject.copyWith(userName: userName);
     _isAllInputsValidStreamController.add(null);
   }
+
+
+
 
   /// OutPuts
   @override
@@ -78,6 +81,10 @@ class LoginViewModel
   Stream<bool> get userNameValidation => _userNameStreamController.stream
       .map((userName) => _isUserNameValid(userName));
 
+  @override
+  Stream<bool> get isAllInputsValid =>  _isAllInputsValidStreamController.stream.map((event) => _isAllInputsAreValid());
+
+
   bool _isPasswordValid(String password) {
     return password.isNotEmpty;
   }
@@ -85,12 +92,6 @@ class LoginViewModel
   bool _isUserNameValid(String userName) {
     return userName.isNotEmpty;
   }
-
-  @override
-  Sink get isAllInputs =>     _isAllInputsValidStreamController.sink;
-
-  @override
-  Stream<bool> get isAllInputsValid =>  _isAllInputsValidStreamController.stream.map((event) => _isAllInputsAreValid());
 
   bool _isAllInputsAreValid() {
     return _isPasswordValid(_loginObject.password) && _isUserNameValid(_loginObject.userName);

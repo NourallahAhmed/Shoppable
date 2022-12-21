@@ -50,9 +50,9 @@ class RoutesManager {
       default:
         return MaterialPageRoute(builder: (_) => Scaffold(
           appBar: AppBar(
-            title: Text(StringsManager.noSuchRoutes),
+            title: Text(AppStrings.noSuchRoutes),
           ),
-          body: Center(child: Text(StringsManager.noSuchRoutes),)
+          body: Center(child: Text(AppStrings.noSuchRoutes),)
         ));
     }
   }

@@ -82,7 +82,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(AppPadding.p8),
                     child: Text(
-                      StringsManager.skip,
+                      AppStrings.skip,
                       textAlign: TextAlign.end,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
