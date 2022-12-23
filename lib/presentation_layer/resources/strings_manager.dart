@@ -19,4 +19,8 @@ class AppStrings{
 
   static const String empty = "";
 
+  static const String resetPassword = "Reset Password";
+
+  static const String resendMail ="Does not receive email? , Resend!";
+
 }
