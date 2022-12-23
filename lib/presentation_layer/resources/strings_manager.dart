@@ -17,4 +17,6 @@ class AppStrings{
 
   static const  String retry= "Retry";
 
+  static const String empty = "";
+
 }
