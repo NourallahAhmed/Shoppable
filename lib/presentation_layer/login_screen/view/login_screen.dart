@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tut_advanced_clean_arch/application_layer/dependency_injection.dart';
+import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer_impl.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/login_screen/viewmodel/login_viewmodel.dart';
+import 'package:tut_advanced_clean_arch/presentation_layer/resources/color_manager.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/resources/value_manager.dart';
 
 import '../../resources/image_manager.dart';
@@ -39,12 +41,22 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return _getContentWidgets();
+    return Scaffold(
+      backgroundColor: ColorManager.white,
+      body: StreamBuilder<FlowState>(
+        stream: _loginViewModel.outputFlowState,
+        builder: (context , snapShot){
+          return snapShot.data?.getStateContentWidget(context, _getContentWidgets(), (){
+            // _loginViewModel.login();
+          }) ?? _getContentWidgets();
+        },
+      ),
+    );
   }
 
   Widget _getContentWidgets() {
-    return Scaffold(
-      body: SingleChildScrollView(
+    return Container(
+      child: SingleChildScrollView(
         child: Column(
           children: [
             //image
@@ -129,7 +141,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               onPressed:
                               (snapshot.data ?? false  )
                                   ? () {
-                                    Navigator.pushReplacementNamed(context, Routes.homeScreen);
+                                _loginViewModel.login();
+
+                                // Navigator.pushReplacementNamed(context, Routes.homeScreen);
                                     }
                                   : null ,
                               child: Text(AppStrings.login)),

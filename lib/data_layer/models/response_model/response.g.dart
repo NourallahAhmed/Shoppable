@@ -33,7 +33,7 @@ Map<String, dynamic> _$CustomerResponseToJson(CustomerResponse instance) =>
 ContactsResponse _$ContactsResponseFromJson(Map<String, dynamic> json) =>
     ContactsResponse(
       json['email'] as String?,
-      json['phone'] as int?,
+      json['phone'] as String?,
     );
 
 Map<String, dynamic> _$ContactsResponseToJson(ContactsResponse instance) =>

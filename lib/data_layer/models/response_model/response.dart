@@ -41,7 +41,7 @@ class ContactsResponse{
   String? email;
 
   @JsonKey(name: "phone")
-  int? phone;
+  String? phone;
 
   ContactsResponse(this.email, this.phone);
 

@@ -8,7 +8,7 @@ class Customer{
 
 class Contacts{
   String email;
-  int phone;
+  String phone;
 
   Contacts(this.email, this.phone);
 }

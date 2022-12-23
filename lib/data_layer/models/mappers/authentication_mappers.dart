@@ -7,7 +7,7 @@ extension CustomerResponseExtension on CustomerResponse{
 }
 
 extension ContactsResponseExtension on ContactsResponse{
-  Contacts toDomain() => Contacts(email.orEmpty(), phone.notZero());
+  Contacts toDomain() => Contacts(email.orEmpty(), phone.orEmpty());
 }
 
 extension AuthenticationResponseExtension on AuthenticationResponse{

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:tut_advanced_clean_arch/presentation_layer/resources/image_manager.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/resources/value_manager.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/strings_manager.dart';
@@ -37,29 +38,29 @@ class StateRenderer extends StatelessWidget {
     switch (stateRendererType) {
       case StateRendererType.popupLoadingState:
         return getPopupDialog(context, [
-          getAnimatedImage(""),
+          getAnimatedImage(JsonManager.loadingJson),
         ]);
 
       case StateRendererType.popupErrorState:
         return getPopupDialog(context, [
-          getAnimatedImage(""),
+          getAnimatedImage(JsonManager.errorJson),
           getErrorMessage(message, context),
-          getButtonWidget(context),
+          getButtonWidget(context , AppStrings.ok),
         ]);
 
       case StateRendererType.fullScreenLoadingState:
-        return getFullScreenContent([getAnimatedImage("")]);
+        return getFullScreenContent([getAnimatedImage(JsonManager.loadingJson)]);
 
       case StateRendererType.fullScreenErrorState:
         return getFullScreenContent([
-          getAnimatedImage(""),
+          getAnimatedImage(JsonManager.errorJson),
           getErrorMessage(message, context),
-          getButtonWidget(context),
+          getButtonWidget(context, AppStrings.retry),
         ]);
 
       case StateRendererType.fullScreenEmptyState:
         return getFullScreenContent([
-          getAnimatedImage(""),
+          getAnimatedImage(JsonManager.emptyJson),
         ]);
 
       case StateRendererType.contentState:
@@ -117,7 +118,7 @@ class StateRenderer extends StatelessWidget {
     );
   }
 
-  Widget getButtonWidget(BuildContext context) {
+  Widget getButtonWidget(BuildContext context , String buttonTxt) {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
@@ -125,11 +126,12 @@ class StateRenderer extends StatelessWidget {
           if (stateRendererType == StateRendererType.fullScreenErrorState) {
             retryActionFunction.call();
           } else {
-            Navigator.of(context).pop;
+            print("PopUpPopUpPopUpPopUpPopUpPopUpPopUpPopUpPopUp");
+            Navigator.of(context).pop();
           }
         },
         child: Text(
-          AppStrings.retry,
+          buttonTxt,
           style: Theme.of(context).textTheme.headlineMedium,
         ),
       ),
