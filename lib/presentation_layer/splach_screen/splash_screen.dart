@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/home_screen/home_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tut_advanced_clean_arch/application_layer/app_pref.dart';
+import 'package:tut_advanced_clean_arch/application_layer/dependency_injection.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/resources/color_manager.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/resources/image_manager.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/resources/routes_manager.dart';
@@ -15,6 +17,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  final AppPreferences _appPreferences = instance<AppPreferences>();
   Timer? _timer  ;
   
   
@@ -22,8 +25,38 @@ class _SplashScreenState extends State<SplashScreen> {
     _timer = Timer(Duration(seconds: AppDurations.sec5 ), _goNext);
     
   }
-  _goNext(){
-    Navigator.pushReplacementNamed(context, Routes.onBoardingScreen);
+  _goNext() async {
+   _appPreferences.isUserLoggedIn().then((isLoggedIn) => {
+     //check if user Logged in
+
+     if(isLoggedIn){
+       _appPreferences.isUserSeeOnBoardingView().then((isUserViewedOnBoarding) =>
+       {
+
+         //check if true -> Is User see onboarding Screen
+         if(isUserViewedOnBoarding){
+           // check if true -> go home page
+            Navigator.pushReplacementNamed(context, Routes.homeScreen)
+         }
+         else{
+           // check if false -> go to onboarding
+           Navigator.pushReplacementNamed(context, Routes.onBoardingScreen)
+         }
+       })
+     }
+     else{
+       // check if false -> go to login screen
+
+       Navigator.pushReplacementNamed(context, Routes.loginScreen)
+
+     }
+   });
+
+
+
+
+
+
   }
 
   @override

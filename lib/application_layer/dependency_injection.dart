@@ -61,7 +61,7 @@ initLoginModule(){
 
     /// login view model
     instance.registerFactory<LoginViewModel>(() =>
-        LoginViewModel(instance<LoginUseCase>()));
+        LoginViewModel(instance<LoginUseCase>() , instance<AppPreferences>()));
   }
 }
 

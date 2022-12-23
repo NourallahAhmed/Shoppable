@@ -44,7 +44,7 @@ class RoutesManager {
         return MaterialPageRoute(builder: (_) => const DetailsScreen());
 
       case ( Routes.forgetPasswordScreen):
-
+        initForgetPasswordModule();
         return MaterialPageRoute(builder: (_) => const ForgetPasswordScreen());
 
       default:

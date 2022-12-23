@@ -5,6 +5,7 @@ import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer
 import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer_impl.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/view_model_base/base_view_model.dart';
 
+import '../../../application_layer/app_pref.dart';
 import '../../../domain_layer/usecase/login_usecase/login_usecase.dart';
 
 class LoginViewModel extends BaseViewModel
@@ -24,11 +25,11 @@ class LoginViewModel extends BaseViewModel
 
   // useCase object
   final LoginUseCase _loginUseCase;
-
+  final AppPreferences _appPreferences;
   //data class
   LoginObject _loginObject = LoginObject("", "");
 
-  LoginViewModel(this._loginUseCase);
+  LoginViewModel(this._loginUseCase  , this._appPreferences);
 
   @override
   void dispose() {
@@ -51,9 +52,10 @@ class LoginViewModel extends BaseViewModel
             LoginUseCaseInput(_loginObject.userName, _loginObject.password)))
         .fold((l) =>    inputFlowState.add(ErrorState(stateRendererType: StateRendererType.popupErrorState, message: l.message)),
 
-            (r) =>    {
+            (r) {
               // inputFlowState.add(EmptyState("message"))
-              isLoggedInSuccessfullyStreamController.add(true)
+              isLoggedInSuccessfullyStreamController.add(true);
+              _appPreferences.setUserLoggedIn();
               }
     );
   }
