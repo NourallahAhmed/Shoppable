@@ -15,22 +15,22 @@ abstract class BaseViewModel extends BaseViewModelInputs with BaseViewModeOutput
   }
 
   @override
-  Sink<FlowState> inputFlowState() => _flowStateStreamController.sink;
+  Sink<FlowState> get  inputFlowState => _flowStateStreamController.sink;
 
   @override
-  Stream<FlowState> outputFlowState() =>
+  Stream<FlowState> get outputFlowState =>
       _flowStateStreamController.stream.map((flowState) => flowState);
 }
 
 abstract class BaseViewModelInputs{
   void start();
   void dispose();
-  Sink<FlowState> inputFlowState();
+  Sink<FlowState> get inputFlowState;
 }
 
 
 abstract class BaseViewModeOutputs{
-  Stream<FlowState> outputFlowState();
+  Stream<FlowState> get outputFlowState;
 
 }
 

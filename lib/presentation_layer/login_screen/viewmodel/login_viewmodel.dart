@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'package:tut_advanced_clean_arch/presentation_layer/common/frezzed_data_classes.dart';
+import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer.dart';
+import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer_impl.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/view_model_base/base_view_model.dart';
 
 import '../../../domain_layer/usecase/login_usecase/login_usecase.dart';
 
-class LoginViewModel
-    implements BaseViewModel, LoginViewModelInput, LoginViewModelOutput {
-
-
+class LoginViewModel extends BaseViewModel
+    with LoginViewModelInput, LoginViewModelOutput {
   // initialize streams
 
   /// broadcast for multipleListener
@@ -17,8 +17,6 @@ class LoginViewModel
       StreamController<String>.broadcast();
   final StreamController _isAllInputsValidStreamController =
       StreamController<void>.broadcast();
-
-
 
   // useCase object
   final LoginUseCase _loginUseCase;
@@ -37,13 +35,20 @@ class LoginViewModel
 
   @override
   void start() {
-
+    inputFlowState.add(ContentState());
   }
 
   ///Input Actions
   @override
   login() async {
-    await _loginUseCase.execute(LoginUseCaseInput(_loginObject.userName , _loginObject.password));
+
+    inputFlowState.add(
+    (await _loginUseCase.execute(
+            LoginUseCaseInput(_loginObject.userName, _loginObject.password)))
+        .fold((l) => ErrorState(stateRendererType: StateRendererType.popupErrorState, message: l.message),
+
+            (r) => ContentState()
+        ));
   }
 
   @override
@@ -58,7 +63,9 @@ class LoginViewModel
   @override
   setPassword(String password) {
     _passwordStreamController.add(password);
-    _loginObject = _loginObject.copyWith(password: password); ///Frezzed
+    _loginObject = _loginObject.copyWith(password: password);
+
+    ///Frezzed
     _isAllInputsValidStreamController.add(null);
   }
 
@@ -68,9 +75,6 @@ class LoginViewModel
     _loginObject = _loginObject.copyWith(userName: userName);
     _isAllInputsValidStreamController.add(null);
   }
-
-
-
 
   /// OutPuts
   @override
@@ -82,8 +86,8 @@ class LoginViewModel
       .map((userName) => _isUserNameValid(userName));
 
   @override
-  Stream<bool> get isAllInputsValid =>  _isAllInputsValidStreamController.stream.map((event) => _isAllInputsAreValid());
-
+  Stream<bool> get isAllInputsValid => _isAllInputsValidStreamController.stream
+      .map((event) => _isAllInputsAreValid());
 
   bool _isPasswordValid(String password) {
     return password.isNotEmpty;
@@ -94,7 +98,8 @@ class LoginViewModel
   }
 
   bool _isAllInputsAreValid() {
-    return _isPasswordValid(_loginObject.password) && _isUserNameValid(_loginObject.userName);
+    return _isPasswordValid(_loginObject.password) &&
+        _isUserNameValid(_loginObject.userName);
   }
 }
 
@@ -114,6 +119,7 @@ abstract class LoginViewModelInput {
   Sink get passwordInput;
 
   Sink get userNameInput;
+
   Sink get isAllInputs;
 }
 
@@ -122,5 +128,6 @@ abstract class LoginViewModelOutput {
   Stream<bool> get passwordValidation;
 
   Stream<bool> get userNameValidation;
+
   Stream<bool> get isAllInputsValid;
 }
