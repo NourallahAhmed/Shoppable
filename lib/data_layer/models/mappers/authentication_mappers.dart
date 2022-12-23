@@ -13,3 +13,8 @@ extension ContactsResponseExtension on ContactsResponse{
 extension AuthenticationResponseExtension on AuthenticationResponse{
   Authentication toDomain() => Authentication(customer?.toDomain() , contacts?.toDomain());
 }
+
+
+extension ForgetPasswordResponseExtension on ForgetPasswordResponse{
+  ForgetPassword toDomain() => ForgetPassword(email.orEmpty() );
+}

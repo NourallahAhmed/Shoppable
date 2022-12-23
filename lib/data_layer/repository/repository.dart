@@ -35,4 +35,25 @@ class Repository implements BaseRepository{
     }
   }
 
+  @override
+  Future<Either<Failure, ForgetPassword>> forgetPassword(String email) async {
+    if (await _networkChecker.isConnected){
+      try{
+        final reponse = await _baseRemoteDataSource.forgetPassword(email);
+
+        if (reponse.status == ApiInternalStatus.SUCCESS) {
+          // return 0
+          return Right(reponse.toDomain());
+        } else {
+          return Left(
+              Failure(ApiInternalStatus.SUCCESS, ResponseMessage.DEFAULT));
+        }
+      }catch(error){
+        return Left(DataSource.DEFAULT.getFailure());
+      }
+    }else{
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+    }
+  }
+
 }

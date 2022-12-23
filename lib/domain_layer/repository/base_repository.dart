@@ -5,4 +5,5 @@ import '../../data_layer/models/response_model/login_request.dart';
 
 abstract class BaseRepository{
   Future<Either<Failure , Authentication>> login (LoginRequest loginRequest);
+  Future<Either<Failure , ForgetPassword>> forgetPassword (String email);
 }

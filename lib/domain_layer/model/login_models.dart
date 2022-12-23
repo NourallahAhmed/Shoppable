@@ -19,3 +19,9 @@ class Authentication{
 
   Authentication(this.customer, this.contacts);
 }
+
+class ForgetPassword{
+  String email;
+
+  ForgetPassword(this.email);
+}

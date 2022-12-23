@@ -61,6 +61,7 @@ class StateRenderer extends StatelessWidget {
       case StateRendererType.fullScreenEmptyState:
         return getFullScreenContent([
           getAnimatedImage(JsonManager.emptyJson),
+          getButtonWidget(context, AppStrings.retry),
         ]);
 
       case StateRendererType.contentState:
@@ -94,8 +95,13 @@ class StateRenderer extends StatelessWidget {
   }
 
   Widget getFullScreenContent(List<Widget> children) {
-    return Column(
-      children: children,
+    return Center(
+      child: Column(
+        // mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: children,
+      ),
     );
   }
 
@@ -121,18 +127,21 @@ class StateRenderer extends StatelessWidget {
   Widget getButtonWidget(BuildContext context , String buttonTxt) {
     return SizedBox(
       width: double.infinity,
-      child: ElevatedButton(
-        onPressed: () {
-          if (stateRendererType == StateRendererType.fullScreenErrorState) {
-            retryActionFunction.call();
-          } else {
-            print("PopUpPopUpPopUpPopUpPopUpPopUpPopUpPopUpPopUp");
-            Navigator.of(context).pop();
-          }
-        },
-        child: Text(
-          buttonTxt,
-          style: Theme.of(context).textTheme.headlineMedium,
+      child: Padding(
+        padding: const EdgeInsets.all(AppPadding.p28),
+        child: ElevatedButton(
+          onPressed: () {
+            if (stateRendererType == StateRendererType.fullScreenErrorState) {
+              retryActionFunction.call();
+            } else {
+
+              Navigator.of(context).pop();
+            }
+          },
+          child: Text(
+            buttonTxt,
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
         ),
       ),
     );

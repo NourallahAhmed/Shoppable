@@ -42,14 +42,14 @@ class LoginViewModel extends BaseViewModel
   ///Input Actions
   @override
   login() async {
-    inputFlowState.add(   LoadingState(stateRendererType: StateRendererType.popupLoadingState));
     inputFlowState.add(
+        LoadingState(stateRendererType: StateRendererType.popupLoadingState));
     (await _loginUseCase.execute(
             LoginUseCaseInput(_loginObject.userName, _loginObject.password)))
-        .fold((l) => ErrorState(stateRendererType: StateRendererType.popupErrorState, message: l.message),
+        .fold((l) =>    inputFlowState.add(ErrorState(stateRendererType: StateRendererType.popupErrorState, message: l.message)),
 
-            (r) => ContentState()
-        ));
+            (r) =>    inputFlowState.add(EmptyState("message"))
+    );
   }
 
   @override
