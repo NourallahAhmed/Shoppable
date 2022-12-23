@@ -1,18 +1,21 @@
+import 'package:flutter/material.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/resources/strings_manager.dart';
 
-abstract class FlowState{
+abstract class FlowState {
   StateRendererType getStateRendererType();
+
   String getMessage();
 }
 
 //4 types
 
-class LoadingState extends FlowState{
+class LoadingState extends FlowState {
   StateRendererType stateRendererType;
   String message;
 
-  LoadingState({ required this.stateRendererType, this.message = AppStrings.loading});
+  LoadingState(
+      {required this.stateRendererType, this.message = AppStrings.loading});
 
   @override
   String getMessage() => message;
@@ -21,11 +24,11 @@ class LoadingState extends FlowState{
   StateRendererType getStateRendererType() => stateRendererType;
 }
 
-class ErrorState extends FlowState{
+class ErrorState extends FlowState {
   StateRendererType stateRendererType;
   String message;
 
-  ErrorState({ required this.stateRendererType, required this.message });
+  ErrorState({required this.stateRendererType, required this.message});
 
   @override
   String getMessage() => message;
@@ -34,7 +37,7 @@ class ErrorState extends FlowState{
   StateRendererType getStateRendererType() => stateRendererType;
 }
 
-class EmptyState extends FlowState{
+class EmptyState extends FlowState {
   String message;
 
   EmptyState(this.message);
@@ -43,11 +46,11 @@ class EmptyState extends FlowState{
   String getMessage() => message;
 
   @override
-  StateRendererType getStateRendererType() => StateRendererType.fullScreenEmptyState;
+  StateRendererType getStateRendererType() =>
+      StateRendererType.fullScreenEmptyState;
 }
 
-class ContentState extends FlowState{
-
+class ContentState extends FlowState {
   ContentState();
 
   @override
@@ -55,4 +58,82 @@ class ContentState extends FlowState{
 
   @override
   StateRendererType getStateRendererType() => StateRendererType.contentState;
+}
+
+// the super function
+
+extension FlowStateExtension on FlowState {
+
+  Widget getStateContentWidget(BuildContext context,
+      Widget widgetContent,
+      Function retryFunction) {
+    switch (runtimeType) {
+      case LoadingState:
+        {
+          _dismissDialog(context);
+          //PopUP
+          if (StateRendererType.popupLoadingState == getStateRendererType()) {
+            showPopUpDialog(context ,  getMessage() , getStateRendererType());
+            return widgetContent;
+          }
+          //Full Screen
+          else {
+            return StateRenderer(stateRendererType: getStateRendererType(),
+                retryActionFunction: retryFunction);
+          }
+        }
+
+      case EmptyState:
+        {
+          return StateRenderer(stateRendererType: getStateRendererType(),
+              retryActionFunction: retryFunction);
+        }
+
+      case ErrorState:
+        {
+          _dismissDialog(context);
+
+          //PopUP
+          if (StateRendererType.popupErrorState == getStateRendererType()) {
+            showPopUpDialog(context ,  getMessage() , getStateRendererType());
+            return widgetContent;
+          }
+          //Full Screen
+          else {
+            return StateRenderer(stateRendererType: getStateRendererType(),
+                retryActionFunction: retryFunction);
+          }
+        }
+
+      case ContentState:
+        {
+          _dismissDialog(context);
+          return widgetContent;
+        }
+
+      default:
+        _dismissDialog(context);
+        return widgetContent;
+    }
+  }
+
+
+  _dismissDialog(BuildContext context){
+    if (_isWigdetContainDialog(context)){ //true means has Dialog
+    Navigator.of(context , rootNavigator: true).pop(true);
+    }
+  }
+
+  _isWigdetContainDialog(BuildContext context){
+  return  ModalRoute.of(context)?.isCurrent != true;
+  }
+  showPopUpDialog(BuildContext context, String message , StateRendererType stateRendererType) {
+    WidgetsBinding.instance.addPostFrameCallback((_) =>
+        showDialog(
+            context: context,
+            builder: (context){
+              return StateRenderer(stateRendererType: stateRendererType, message:  message,retryActionFunction: (){});
+
+            }));
+  }
 }
