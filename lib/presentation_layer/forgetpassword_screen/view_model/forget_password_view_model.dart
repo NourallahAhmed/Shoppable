@@ -8,7 +8,9 @@ import 'package:tut_advanced_clean_arch/presentation_layer/view_model_base/base_
 class ForgetPasswordViewModel extends BaseViewModel
     with ForgetPasswordViewModelInputs, ForgetPasswordViewModelOutputs {
   final ForgetPasswordUseCase _forgetPasswordUseCase;
-  final StreamController<String> _userEmailInputStreamController = StreamController();
+  final StreamController<String> _userEmailInputStreamController = StreamController.broadcast();
+  final StreamController<bool> _isAllInputAreValidStreamController = StreamController.broadcast();
+
   var email = "";
 
   ForgetPasswordViewModel(this._forgetPasswordUseCase);
@@ -26,6 +28,7 @@ class ForgetPasswordViewModel extends BaseViewModel
   @override
   dispose() {
     _userEmailInputStreamController.close();
+    _isAllInputAreValidStreamController.close();
     super.dispose();
   }
 
@@ -40,6 +43,7 @@ class ForgetPasswordViewModel extends BaseViewModel
   setUserEmail(String userEmail) {
     email = userEmail;
     _userEmailInputStreamController.add(userEmail);
+    _isAllInputAreValidStreamController.add(true);
   }
 
   @override
@@ -47,13 +51,16 @@ class ForgetPasswordViewModel extends BaseViewModel
     inputFlowState.add(
         LoadingState(stateRendererType: StateRendererType.popupLoadingState));
 
-    (await _forgetPasswordUseCase.execute(email))
-        .fold((l) =>
-        inputFlowState.add(ErrorState(
-            stateRendererType: StateRendererType.popupErrorState,
-            message: l.message))
-        , (r) =>  inputFlowState.add(ContentState()));
+    // (await _forgetPasswordUseCase.execute(email))
+    //     .fold((l) =>
+    //     inputFlowState.add(ErrorState(
+    //         stateRendererType: StateRendererType.popupErrorState,
+    //         message: l.message))
+    //     , (r) =>  inputFlowState.add(ContentState()));
   }
+
+  @override
+  Stream<bool> get isAllInputsAreValid => _isAllInputAreValidStreamController.stream.map((valid) => valid);
 }
 
 abstract class ForgetPasswordViewModelInputs {
@@ -66,4 +73,5 @@ abstract class ForgetPasswordViewModelInputs {
 
 abstract class ForgetPasswordViewModelOutputs {
   Stream<bool> get isUserEmailValid;
+  Stream<bool> get isAllInputsAreValid;
 }

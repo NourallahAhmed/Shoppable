@@ -17,15 +17,15 @@ class ForgetPasswordScreen extends StatefulWidget {
 
 class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _forgetPassswordViewModel = instance<ForgetPasswordViewModel>();
+  final _forgetPasswordViewModel = instance<ForgetPasswordViewModel>();
 
   final TextEditingController _userNameController = TextEditingController();
 
 
   _bind() {
-    _forgetPassswordViewModel.start();
+    _forgetPasswordViewModel.start();
     _userNameController.addListener(
-            () => _forgetPassswordViewModel.setUserEmail(_userNameController.text));
+            () => _forgetPasswordViewModel.setUserEmail(_userNameController.text));
   }
 
   initState(){
@@ -37,7 +37,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
     return Scaffold(
       backgroundColor: ColorManager.white,
       body: StreamBuilder<FlowState>(
-        stream: _forgetPassswordViewModel.outputFlowState,
+        stream: _forgetPasswordViewModel.outputFlowState,
         builder: (context , snapshot){
           return snapshot.data?.getStateContentWidget(context, _getContentWidgets(), (){}) ?? _getContentWidgets();
         },
@@ -46,7 +46,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   }
 
   dispose(){
-    _forgetPassswordViewModel.dispose();
+    _forgetPasswordViewModel.dispose();
     super.dispose();
   }
   Widget _getContentWidgets() {
@@ -76,7 +76,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       padding: const EdgeInsets.only(
                           left: AppPadding.p28, right: AppPadding.p28),
                       child: StreamBuilder<bool>(
-                        stream: _forgetPassswordViewModel.isUserEmailValid,
+                        stream: _forgetPasswordViewModel.isUserEmailValid,
                         builder: (context, snapShot) {
                           return TextFormField(
                             keyboardType: TextInputType.emailAddress,
@@ -108,7 +108,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 padding: const EdgeInsets.only(
                     left: AppPadding.p28, right: AppPadding.p28),
                 child: StreamBuilder<bool>(
-                    stream: _forgetPassswordViewModel.isUserEmailValid,
+                    stream: _forgetPasswordViewModel.isAllInputsAreValid,
                     builder: (context, snapshot) {
                       return SizedBox(
                         height: AppSize.s50,
@@ -117,7 +117,9 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                             onPressed:
                             (snapshot.data ?? false  )
                                 ? () {
-                              _forgetPassswordViewModel.resetPassword();
+                              print("snapshot.data");
+                              print(snapshot.data);
+                              _forgetPasswordViewModel.resetPassword();
 
                               // Navigator.pushReplacementNamed(context, Routes.homeScreen);
                             }

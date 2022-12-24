@@ -29,27 +29,30 @@ class _SplashScreenState extends State<SplashScreen> {
    _appPreferences.isUserLoggedIn().then((isLoggedIn) => {
      //check if user Logged in
 
-     if(isLoggedIn){
-       _appPreferences.isUserSeeOnBoardingView().then((isUserViewedOnBoarding) =>
-       {
-
-         //check if true -> Is User see onboarding Screen
-         if(isUserViewedOnBoarding){
-           // check if true -> go home page
-            Navigator.pushReplacementNamed(context, Routes.homeScreen)
-         }
-         else{
-           // check if false -> go to onboarding
-           Navigator.pushReplacementNamed(context, Routes.onBoardingScreen)
-         }
-       })
+     if(isLoggedIn ){
+        Navigator.pushReplacementNamed(context, Routes.homeScreen)
      }
      else{
-       // check if false -> go to login screen
 
-       Navigator.pushReplacementNamed(context, Routes.loginScreen)
-
-     }
+        _appPreferences
+                  .isUserSeeOnBoardingView()
+                  .then(
+                (isUserViewedOnBoarding) => {
+                        //check if true -> Is User see onboarding Screen
+                        if (isUserViewedOnBoarding)
+                          {
+                            // check if true -> go home page
+                            Navigator.pushReplacementNamed(
+                                context, Routes.loginScreen)
+                          }
+                        else
+                          {
+                            // check if false -> go to onboarding
+                            Navigator.pushReplacementNamed(
+                                context, Routes.onBoardingScreen)
+                          }
+                      })
+            }
    });
 
 

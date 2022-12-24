@@ -170,13 +170,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   TextButton(
-                      onPressed: () => Navigator.pushReplacementNamed(context, Routes.forgetPasswordScreen),
+                      onPressed: () => Navigator.pushNamed(context, Routes.forgetPasswordScreen),
                       child: Text(
                         AppStrings.forgetPassword,
                         style: Theme.of(context).textTheme.bodySmall,
                       )),
                   TextButton(
-                      onPressed: () => Navigator.pushReplacementNamed(context, Routes.registerScreen),
+                      onPressed: () => Navigator.pushNamed(context, Routes.registerScreen),
                       child: Text(
                         AppStrings.register,
                         style: Theme.of(context).textTheme.bodySmall,
