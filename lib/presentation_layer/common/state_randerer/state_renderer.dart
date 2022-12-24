@@ -9,6 +9,7 @@ import '../../resources/style_manager.dart';
 enum StateRendererType {
   popupLoadingState,
   popupErrorState,
+  popupSuccessState,
   fullScreenLoadingState,
   fullScreenErrorState,
   fullScreenEmptyState,
@@ -44,7 +45,13 @@ class StateRenderer extends StatelessWidget {
       case StateRendererType.popupErrorState:
         return getPopupDialog(context, [
           getAnimatedImage(JsonManager.errorJson),
-          getErrorMessage(message, context),
+          getMessage(message, context),
+          getButtonWidget(context , AppStrings.ok),
+        ]);
+      case StateRendererType.popupSuccessState:
+        return getPopupDialog(context, [
+          getAnimatedImage(JsonManager.successJson),
+          getMessage(message, context),
           getButtonWidget(context , AppStrings.ok),
         ]);
 
@@ -54,7 +61,7 @@ class StateRenderer extends StatelessWidget {
       case StateRendererType.fullScreenErrorState:
         return getFullScreenContent([
           getAnimatedImage(JsonManager.errorJson),
-          getErrorMessage(message, context),
+          getMessage(message, context),
           getButtonWidget(context, AppStrings.retry),
         ]);
 
@@ -112,10 +119,10 @@ class StateRenderer extends StatelessWidget {
         child: Lottie.asset(animationName));
   }
 
-  Widget getErrorMessage(String error, BuildContext context) {
+  Widget getMessage(String message, BuildContext context) {
     return SizedBox(
       child: Text(
-        error,
+        message,
         style: getRegularStyle(
             color: ColorManager.lightBlack,
             fontSize: AppSize.s18

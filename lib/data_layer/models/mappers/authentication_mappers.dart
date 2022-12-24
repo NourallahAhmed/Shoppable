@@ -16,5 +16,5 @@ extension AuthenticationResponseExtension on AuthenticationResponse{
 
 
 extension ForgetPasswordResponseExtension on ForgetPasswordResponse{
-  ForgetPassword toDomain() => ForgetPassword(email.orEmpty() );
+  ForgetPassword toDomain() => ForgetPassword(support.orEmpty() );
 }

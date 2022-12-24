@@ -21,7 +21,7 @@ class Authentication{
 }
 
 class ForgetPassword{
-  String email;
+  String support;
 
-  ForgetPassword(this.email);
+  ForgetPassword(this.support);
 }

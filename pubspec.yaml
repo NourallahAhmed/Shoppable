@@ -74,6 +74,7 @@ flutter:
     - assets/json/empty.json
     - assets/json/error.json
     - assets/json/loading.json
+    - assets/json/success.json
 
 #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see

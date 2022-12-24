@@ -63,7 +63,7 @@ class _ServerClient implements ServerClient {
     )
             .compose(
               _dio.options,
-              '/customers/forgetPassword',
+              '/customer/forgetPassword',
               queryParameters: queryParameters,
               data: _data,
             )

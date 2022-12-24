@@ -49,6 +49,18 @@ class EmptyState extends FlowState {
   StateRendererType getStateRendererType() =>
       StateRendererType.fullScreenEmptyState;
 }
+class SuccessState extends FlowState {
+  String message;
+
+  SuccessState(this.message);
+
+  @override
+  String getMessage() => message;
+
+  @override
+  StateRendererType getStateRendererType() =>
+      StateRendererType.popupSuccessState;
+}
 
 class ContentState extends FlowState {
   ContentState();
@@ -95,6 +107,21 @@ extension FlowStateExtension on FlowState {
 
           //PopUP
           if (StateRendererType.popupErrorState == getStateRendererType()) {
+            showPopUpDialog(context ,  getMessage() , getStateRendererType());
+            return widgetContent;
+          }
+          //Full Screen
+          else {
+            return StateRenderer(stateRendererType: getStateRendererType(),
+                retryActionFunction: retryFunction);
+          }
+        }
+        case SuccessState:
+        {
+          _dismissDialog(context);
+
+          //PopUP
+          if (StateRendererType.popupSuccessState == getStateRendererType()) {
             showPopUpDialog(context ,  getMessage() , getStateRendererType());
             return widgetContent;
           }

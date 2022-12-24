@@ -55,10 +55,10 @@ class ContactsResponse{
 
 @JsonSerializable()
 class ForgetPasswordResponse extends BaseResponse{
-  @JsonKey(name: "email")
-  String? email;
+  @JsonKey(name: "support")
+  String? support;
 
-  ForgetPasswordResponse(this.email);
+  ForgetPasswordResponse(this.support);
 
   //formJson
   factory ForgetPasswordResponse.fromJson(Map<String, dynamic> json) => _$ForgetPasswordResponseFromJson(json);
