@@ -7,6 +7,7 @@ class AppStrings{
   static const String login = "Login";
   static const String useName = "username";
   static const String useNameError = "please enter your username";
+  static const String emailError = "please enter your email";
   static const String password = "password";
   static const String passwordError = "please enter your password";
   static const String forgetPassword = "Forget password?";
@@ -22,5 +23,7 @@ class AppStrings{
   static const String resetPassword = "Reset Password";
 
   static const String resendMail ="Does not receive email? , Resend!";
+
+  static const String email = "name@email.com";
 
 }

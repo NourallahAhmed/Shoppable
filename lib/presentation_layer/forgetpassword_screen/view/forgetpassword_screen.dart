@@ -82,11 +82,11 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                             keyboardType: TextInputType.emailAddress,
                             controller: _userNameController,
                             decoration: InputDecoration(
-                                label: Text(AppStrings.useName),
-                                hintText: AppStrings.useName,
+                                label: Text(AppStrings.email),
+                                hintText: AppStrings.email,
                                 errorText: (snapShot.data ?? true)
                                     ? null
-                                    : AppStrings.useNameError),
+                                    : AppStrings.emailError),
                           );
                         },
                       )),
@@ -117,8 +117,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                             onPressed:
                             (snapshot.data ?? false  )
                                 ? () {
-                              print("snapshot.data");
-                              print(snapshot.data);
+
                               _forgetPasswordViewModel.resetPassword();
 
                               // Navigator.pushReplacementNamed(context, Routes.homeScreen);
@@ -126,7 +125,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                                 : null ,
                             child: const Text(AppStrings.resetPassword)),
                       );
-                    })),
+                    })
+            ),
 
             //resend email
 
@@ -135,19 +135,29 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   left: AppPadding.p28,
                   right: AppPadding.p28,
                   top: AppPadding.p28),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextButton(
-                      onPressed: () => { },
-                      child: Text(
-                        AppStrings.resendMail,
-                        style: Theme.of(context).textTheme.bodySmall,
-                      )),
+              child: StreamBuilder<bool>(
+                  stream: _forgetPasswordViewModel.isAllInputsAreValid,
+                  builder: (context, snapshot) {
+                    return Row(
 
-                ],
-              ),
-            )
+                      children: [TextButton(
+                          onPressed:
+                          (snapshot.data ?? false  )
+                              ? () {
+
+                            _forgetPasswordViewModel.resetPassword();
+
+                            // Navigator.pushReplacementNamed(context, Routes.homeScreen);
+                          }
+                              : null ,
+                          child:  Text(
+                            AppStrings.resendMail,
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                      )   ]);
+                  })
+            ),
+
           ],
         ),
       ),
