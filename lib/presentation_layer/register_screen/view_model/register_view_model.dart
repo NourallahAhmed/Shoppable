@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:tut_advanced_clean_arch/domain_layer/usecase/register_usecase/register_usecase.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer_impl.dart';
+import 'package:tut_advanced_clean_arch/presentation_layer/resources/strings_manager.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/view_model_base/base_view_model.dart';
 
 import '../../common/frezzed_data_classes.dart';
@@ -55,37 +56,67 @@ class RegisterViewModel extends BaseViewModel
   @override
   Sink get isAllInputs => _allInputsValidationStreamController.sink;
 
+
+  /// Email
   @override
   Stream<bool> get emailValidation =>
       _emailStreamController.stream.map((email) => _isEmailValid(email));
 
   @override
+  Stream<String?> get emailValidationMessage => emailValidation.map((isEmailValid) => isEmailValid ? null : AppStrings.emailErrorMessage) ;
+
+
+
+  /// Password
+  @override
   Stream<bool> get passwordValidation => _passwordStreamController.stream
       .map((password) => _isPasswordValid(password));
+
+  @override
+  Stream<String?> get passwordValidationMessage => passwordValidation.map((isPasswordValid) => isPasswordValid ? null : AppStrings.passwordErrorMessage);
+
+  ///  Phone
 
   @override
   Stream<bool> get phoneValidation =>
       _phoneStreamController.stream.map((phone) => _isPhoneValid(phone));
 
+
+  @override
+  Stream<String?> get phoneValidationMessage => phoneValidation.map((isPhoneValid) => isPhoneValid ?  null : AppStrings.phoneErrorMessage);
+
+  ///Country code
   @override
   Stream<bool> get countryCodeValidation => _countryCodeStreamController.stream
       .map((countryCode) => _isCountyCodeValid(countryCode));
 
   @override
+  Stream<String?> get countryCodeValidationMessage => countryCodeValidation.map((isCountryCodeValid) =>  isCountryCodeValid ? null : AppStrings.countyCodeErrorMessage);
+
+
+  ///UserName
+  @override
   Stream<bool> get userNameValidation => _userNameStreamController.stream
       .map((userName) => _isUserNameValid(userName));
 
+
+  @override
+  Stream<String?> get userNameValidationMessage => userNameValidation.map((isUserNameValid) =>  isUserNameValid ? null : AppStrings.useNameError);
+
+
+
+  /// All inputs Validation
   @override
   Stream<bool> get isAllInputsAreValid =>
       _allInputsValidationStreamController.stream
           .map((event) => _isAllInputsAreValid());
 
   ///Validations
-  _isPhoneValid(String phone) => phone.isNotEmpty;
+  _isPhoneValid(String phone) => phone.length >= 11;
 
-  _isEmailValid(String email) => email.isNotEmpty;
+  _isEmailValid(String email) => email.isNotEmpty; //todo: emailValid Method
 
-  _isPasswordValid(String password) => password.isNotEmpty;
+  _isPasswordValid(String password) => password.length >= 8;
 
   _isCountyCodeValid(String countryCode) => countryCode.isNotEmpty;
 
@@ -139,7 +170,12 @@ class RegisterViewModel extends BaseViewModel
     inputFlowState.add(
         LoadingState(stateRendererType: StateRendererType.popupLoadingState));
   }
+
+
+
+
 }
+
 
 abstract class RegisterViewModelInputs {
   setUserName(String userName);
@@ -169,14 +205,21 @@ abstract class RegisterViewModelInputs {
 
 abstract class RegisterViewModelOutputs {
   Stream<bool> get userNameValidation;
+  Stream<String?> get userNameValidationMessage;
 
   Stream<bool> get passwordValidation;
+  Stream<String?> get passwordValidationMessage;
+
 
   Stream<bool> get emailValidation;
+  Stream<String?> get emailValidationMessage;
 
   Stream<bool> get phoneValidation;
+  Stream<String?> get phoneValidationMessage;
 
   Stream<bool> get countryCodeValidation;
+  Stream<String?> get countryCodeValidationMessage;
+
 
   Stream<bool> get isAllInputsAreValid;
 }
