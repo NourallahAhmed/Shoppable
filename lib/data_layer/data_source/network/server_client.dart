@@ -20,4 +20,15 @@ abstract class ServerClient {
   @POST(ApiConstants.forgetPasswordEndPoint)
   Future<ForgetPasswordResponse> forgetPassword(
       @Field("email") String email);
+
+
+  @POST(ApiConstants.registerEndPoint)
+  Future<AuthenticationResponse> register(
+      @Field("email") String email,
+      @Field("user_name") String userName,
+      @Field("password") String password,
+      @Field("phone") String phone,
+      @Field("country_code") String countryCode,
+
+      );
 }

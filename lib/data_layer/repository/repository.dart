@@ -3,6 +3,7 @@ import 'package:tut_advanced_clean_arch/data_layer/data_source/network/failure.d
 import 'package:tut_advanced_clean_arch/data_layer/data_source/remote_data_source/remote_data_source.dart';
 import 'package:tut_advanced_clean_arch/data_layer/models/mappers/authentication_mappers.dart';
 import 'package:tut_advanced_clean_arch/data_layer/models/response_model/login_request.dart';
+import 'package:tut_advanced_clean_arch/data_layer/models/response_model/register_request.dart';
 import 'package:tut_advanced_clean_arch/domain_layer/model/login_models.dart';
 import 'package:tut_advanced_clean_arch/domain_layer/repository/base_repository.dart';
 import '../data_source/network/error_handler.dart';
@@ -37,12 +38,10 @@ class Repository implements BaseRepository{
 
   @override
   Future<Either<Failure, ForgetPassword>> forgetPassword(String email) async {
-    var error1 = "";
     if (await _networkChecker.isConnected){
       try{
         final reponse = await _baseRemoteDataSource.forgetPassword(email);
-          print("Support: --> ${reponse.support}");
-          print("status: --> ${reponse.status}");
+
         if (reponse.status == ApiInternalStatus.SUCCESS) {
           // return 0
           return Right(reponse.toDomain());
@@ -52,6 +51,27 @@ class Repository implements BaseRepository{
         }
       }catch(error){
         print("Error ${error}");
+        return Left(DataSource.DEFAULT.getFailure());
+      }
+    }else{
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, Authentication>> register(RegisterRequest registerRequest) async {
+    if (await _networkChecker.isConnected){
+      try{
+        final reponse = await _baseRemoteDataSource.register(registerRequest);
+
+        if (reponse.status == ApiInternalStatus.SUCCESS) {
+          // return 0
+          return Right(reponse.toDomain());
+        } else {
+          return Left(
+              Failure(ApiInternalStatus.SUCCESS, ResponseMessage.DEFAULT));
+        }
+      }catch(error){
         return Left(DataSource.DEFAULT.getFailure());
       }
     }else{

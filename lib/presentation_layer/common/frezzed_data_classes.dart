@@ -8,3 +8,13 @@ part 'frezzed_data_classes.freezed.dart';
 class LoginObject with _$LoginObject{
   factory LoginObject(String userName,String password) = _LoginObject;
 }
+
+@freezed
+class RegisterObject with _$RegisterObject{
+  factory RegisterObject(
+      String userName,
+      String password,
+      String email,
+      String phone,
+      String countryCode) = _RegisterObject;
+}
