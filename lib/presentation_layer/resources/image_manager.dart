@@ -20,5 +20,6 @@ class IconManager{
   static IconData nextArrow = Icons.arrow_forward_ios;
   static IconData solidCircle = Icons.circle;
   static IconData hollowCircle = Icons.circle_outlined;
+  static IconData cameraIcon = Icons.camera_alt_outlined;
 
 }

@@ -1,4 +1,3 @@
-import 'dart:html';
 
 class RegisterRequest {
   String email;
@@ -6,7 +5,7 @@ class RegisterRequest {
   String userName;
   String phone;
   String countryCode;
-  File picture;
+  String picture;
 
   RegisterRequest(
       this.email, this.password, this.userName, this.phone, this.countryCode, this.picture);

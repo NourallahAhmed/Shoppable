@@ -1,12 +1,13 @@
-import 'dart:async';
-import 'dart:html';
 
+
+import 'dart:async';
+
+import 'dart:io';
 import 'package:tut_advanced_clean_arch/domain_layer/usecase/register_usecase/register_usecase.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer_impl.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/resources/strings_manager.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/view_model_base/base_view_model.dart';
-
 import '../../common/frezzed_data_classes.dart';
 
 class RegisterViewModel extends BaseViewModel
@@ -27,6 +28,8 @@ class RegisterViewModel extends BaseViewModel
       StreamController<String>.broadcast();
   final StreamController _allInputsValidationStreamController =
       StreamController<String>.broadcast();
+  final StreamController isRegisteredSuccessfullyStreamController =
+      StreamController<String>.broadcast();
 
   RegisterObject _registerObject = RegisterObject("", "", "", "", "", "");
 
@@ -39,6 +42,8 @@ class RegisterViewModel extends BaseViewModel
     _countryCodeStreamController.close();
     _emailStreamController.close();
     _phoneStreamController.close();
+    _pictureStreamController.close();
+    isRegisteredSuccessfullyStreamController.close();
   }
 
   @override
@@ -111,8 +116,11 @@ class RegisterViewModel extends BaseViewModel
       (isUserNameValid) => isUserNameValid ? null : AppStrings.useNameError);
 
   @override
-  Stream<File?> get photoValidationMessage =>
-      _pictureStreamController.stream.map((file) => file);
+  Stream<File?> get photoValidation =>
+      _pictureStreamController.stream.map((file) =>  _isPhotoValid(file));
+
+  // @override
+  // Stream<String?> get photoValidationMessage => photoValidation.map((file) => _isPhotoValid(file));
 
   /// All inputs Validation
   @override
@@ -121,6 +129,14 @@ class RegisterViewModel extends BaseViewModel
           .map((event) => _isAllInputsAreValid());
 
   ///Validations
+   File? _isPhotoValid(File? photo){
+    if(photo!.path.isNotEmpty && photo != null){
+      return photo;
+    }
+    else{
+      return null;
+    }
+  }
   _isPhoneValid(String phone) => phone.length >= 11;
 
   _isEmailValid(String email) => email.isNotEmpty; //todo: emailValid Method
@@ -207,9 +223,9 @@ class RegisterViewModel extends BaseViewModel
   @override
   setPhoto(File photo) {
     _pictureStreamController.add(photo);
-    if (photo.relativePath != null) {
+    if (photo.path != null) {
       _registerObject =
-          _registerObject.copyWith(picture: photo.relativePath ?? "");
+          _registerObject.copyWith(picture: photo.path );
     } else {
       _registerObject = _registerObject.copyWith(picture: "");
     }
@@ -217,9 +233,23 @@ class RegisterViewModel extends BaseViewModel
   }
 
   @override
-  register() {
+  register() async {
     inputFlowState.add(
         LoadingState(stateRendererType: StateRendererType.popupLoadingState));
+
+    (await _registerUseCase.execute(RegisterUseCaseInput(
+            _registerObject.email,
+            _registerObject.password,
+            _registerObject.userName,
+            _registerObject.phone,
+            _registerObject.countryCode,
+            _registerObject.picture)))
+        .fold((l) => {
+          inputFlowState.add(ErrorState(stateRendererType: StateRendererType.popupErrorState, message: l.message))
+    }, (r)  {
+          inputFlowState.add(ContentState());
+          isRegisteredSuccessfullyStreamController.add(true);
+    });
   }
 
   _validate() {
@@ -278,7 +308,8 @@ abstract class RegisterViewModelOutputs {
 
   Stream<String?> get countryCodeValidationMessage;
 
-  Stream<File?> get photoValidationMessage;
+  Stream<File?> get photoValidation;
+  // Stream<String?> get photoValidationMessage;
 
   Stream<bool> get isAllInputsAreValid;
 }

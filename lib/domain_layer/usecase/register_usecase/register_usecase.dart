@@ -1,4 +1,3 @@
-import 'dart:html';
 
 import 'package:dartz/dartz.dart';
 
@@ -35,7 +34,7 @@ class RegisterUseCaseInput {
   String userName;
   String phone;
   String countryCode;
-  File picture;
+  String picture;
 
   RegisterUseCaseInput(
       this.email, this.password, this.userName, this.phone, this.countryCode, this.picture);
