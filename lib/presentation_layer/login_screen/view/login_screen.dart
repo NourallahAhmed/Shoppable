@@ -64,128 +64,126 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _getContentWidgets() {
-    return Container(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            //image
-            Padding(
-              padding: const EdgeInsets.only(top: AppPadding.p100),
-              child: Center(
-                child: Image.asset(ImageManager.logo),
-              ),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          //image
+          Padding(
+            padding: const EdgeInsets.only(top: AppPadding.p100),
+            child: Center(
+              child: Image.asset(ImageManager.logo),
             ),
+          ),
 
-            const SizedBox(
-              height: AppSize.s100,
-            ),
+          const SizedBox(
+            height: AppSize.s100,
+          ),
 
-            //text fields
-            Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  ///UserName
-                  Padding(
-                      padding: const EdgeInsets.only(
-                          left: AppPadding.p28, right: AppPadding.p28),
-                      child: StreamBuilder<bool>(
-                        stream: _loginViewModel.userNameValidation,
-                        builder: (context, snapShot) {
-                          return TextFormField(
-                            keyboardType: TextInputType.emailAddress,
-                            controller: _userNameController,
-                            decoration: InputDecoration(
-                                label: Text(AppStrings.useName),
-                                hintText: AppStrings.useName,
-                                errorText: (snapShot.data ?? true)
-                                    ? null
-                                    : AppStrings.useNameError),
-                          );
-                        },
-                      )),
-
-                  const SizedBox(
-                    height: AppSize.s12,
-                  ),
-
-                  ///Password
-                  Padding(
-                      padding: const EdgeInsets.only(
-                          left: AppPadding.p28, right: AppPadding.p28),
-                      child: StreamBuilder<bool>(
-                        stream: _loginViewModel.passwordValidation,
-                        builder: (context, snapShot) {
-                          return TextFormField(
-                            keyboardType: TextInputType.visiblePassword,
-                            controller: _passwordController,
-                            decoration: InputDecoration(
-                                label: Text(AppStrings.password),
-                                hintText: AppStrings.password,
-                                errorText: (snapShot.data ?? true)
-                                    ? null
-                                    : AppStrings.passwordError),
-                          );
-                        },
-                      )),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: AppSize.s30,
-            ),
-
-            //login button
-
-            Padding(
-                padding: const EdgeInsets.only(
-                    left: AppPadding.p28, right: AppPadding.p28),
-                child: StreamBuilder<bool>(
-                    stream: _loginViewModel.isAllInputsValid,
-                    builder: (context, snapshot) {
-                        return SizedBox(
-                          height: AppSize.s50,
-                          width: double.infinity,
-                          child: ElevatedButton(
-                              onPressed:
-                              (snapshot.data ?? false  )
-                                  ? () {
-                                _loginViewModel.login();
-
-                                // Navigator.pushReplacementNamed(context, Routes.homeScreen);
-                                    }
-                                  : null ,
-                              child: Text(AppStrings.login)),
+          //text fields
+          Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                ///UserName
+                Padding(
+                    padding: const EdgeInsets.only(
+                        left: AppPadding.p28, right: AppPadding.p28),
+                    child: StreamBuilder<bool>(
+                      stream: _loginViewModel.userNameValidation,
+                      builder: (context, snapShot) {
+                        return TextFormField(
+                          keyboardType: TextInputType.emailAddress,
+                          controller: _userNameController,
+                          decoration: InputDecoration(
+                              label: Text(AppStrings.useName),
+                              hintText: AppStrings.useName,
+                              errorText: (snapShot.data ?? true)
+                                  ? null
+                                  : AppStrings.useNameError),
                         );
-                })),
+                      },
+                    )),
 
-            //forget password and register
+                const SizedBox(
+                  height: AppSize.s12,
+                ),
 
-            Padding(
+                ///Password
+                Padding(
+                    padding: const EdgeInsets.only(
+                        left: AppPadding.p28, right: AppPadding.p28),
+                    child: StreamBuilder<bool>(
+                      stream: _loginViewModel.passwordValidation,
+                      builder: (context, snapShot) {
+                        return TextFormField(
+                          keyboardType: TextInputType.visiblePassword,
+                          controller: _passwordController,
+                          decoration: InputDecoration(
+                              label: Text(AppStrings.password),
+                              hintText: AppStrings.password,
+                              errorText: (snapShot.data ?? true)
+                                  ? null
+                                  : AppStrings.passwordError),
+                        );
+                      },
+                    )),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: AppSize.s30,
+          ),
+
+          //login button
+
+          Padding(
               padding: const EdgeInsets.only(
-                  left: AppPadding.p28,
-                  right: AppPadding.p28,
-                  top: AppPadding.p28),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextButton(
-                      onPressed: () => Navigator.pushNamed(context, Routes.forgetPasswordScreen),
-                      child: Text(
-                        AppStrings.forgetPassword,
-                        style: Theme.of(context).textTheme.bodySmall,
-                      )),
-                  TextButton(
-                      onPressed: () => Navigator.pushNamed(context, Routes.registerScreen),
-                      child: Text(
-                        AppStrings.register,
-                        style: Theme.of(context).textTheme.bodySmall,
-                      )),
-                ],
-              ),
-            )
-          ],
-        ),
+                  left: AppPadding.p28, right: AppPadding.p28),
+              child: StreamBuilder<bool>(
+                  stream: _loginViewModel.isAllInputsValid,
+                  builder: (context, snapshot) {
+                      return SizedBox(
+                        height: AppSize.s50,
+                        width: double.infinity,
+                        child: ElevatedButton(
+                            onPressed:
+                            (snapshot.data ?? false  )
+                                ? () {
+                              _loginViewModel.login();
+
+                              // Navigator.pushReplacementNamed(context, Routes.homeScreen);
+                                  }
+                                : null ,
+                            child: Text(AppStrings.login)),
+                      );
+              })),
+
+          //forget password and register
+
+          Padding(
+            padding: const EdgeInsets.only(
+                left: AppPadding.p28,
+                right: AppPadding.p28,
+                top: AppPadding.p28),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
+                    onPressed: () => Navigator.pushNamed(context, Routes.forgetPasswordScreen),
+                    child: Text(
+                      AppStrings.forgetPassword,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    )),
+                TextButton(
+                    onPressed: () => Navigator.pushNamed(context, Routes.registerScreen),
+                    child: Text(
+                      AppStrings.register,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    )),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

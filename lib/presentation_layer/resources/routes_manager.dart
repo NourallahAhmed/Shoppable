@@ -36,6 +36,7 @@ class RoutesManager {
         return MaterialPageRoute(builder: (_) => const LoginScreen());
 
       case (Routes.registerScreen):
+        initRegisterModule();
         return MaterialPageRoute(builder: (_) => const RegisterScreen());
 
       case (Routes.homeScreen):

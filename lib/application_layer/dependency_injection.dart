@@ -10,7 +10,9 @@ import 'package:tut_advanced_clean_arch/data_layer/data_source/remote_data_sourc
 import 'package:tut_advanced_clean_arch/data_layer/repository/repository.dart';
 import 'package:tut_advanced_clean_arch/domain_layer/usecase/forget_password_usecase/forget_pasword_usecase.dart';
 import 'package:tut_advanced_clean_arch/domain_layer/usecase/login_usecase/login_usecase.dart';
+import 'package:tut_advanced_clean_arch/domain_layer/usecase/register_usecase/register_usecase.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/login_screen/viewmodel/login_viewmodel.dart';
+import 'package:tut_advanced_clean_arch/presentation_layer/register_screen/view_model/register_view_model.dart';
 
 import '../data_layer/data_source/network/server_client.dart';
 import '../presentation_layer/forgetpassword_screen/view_model/forget_password_view_model.dart';
@@ -75,4 +77,19 @@ initForgetPasswordModule(){
     instance.registerFactory<ForgetPasswordViewModel>(() =>
         ForgetPasswordViewModel(instance<ForgetPasswordUseCase>()));
   }
+}
+
+
+initRegisterModule(){
+  if (!GetIt.I.isRegistered<RegisterUseCase>()) {
+
+    ///  LoginUseCase
+    instance.registerFactory<RegisterUseCase>(() =>
+        RegisterUseCase(instance<Repository>()));
+
+    /// login view model
+    instance.registerFactory<RegisterViewModel>(() =>
+        RegisterViewModel(instance<RegisterUseCase>()));
+  }
+
 }

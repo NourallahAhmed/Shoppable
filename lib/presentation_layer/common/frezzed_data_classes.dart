@@ -1,5 +1,7 @@
 
 
+import 'dart:html';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'frezzed_data_classes.freezed.dart';
@@ -16,5 +18,6 @@ class RegisterObject with _$RegisterObject{
       String password,
       String email,
       String phone,
-      String countryCode) = _RegisterObject;
+      String countryCode,
+      String picture) = _RegisterObject;
 }

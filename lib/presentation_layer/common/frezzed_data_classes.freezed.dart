@@ -165,13 +165,14 @@ class _$RegisterObjectTearOff {
   const _$RegisterObjectTearOff();
 
   _RegisterObject call(String userName, String password, String email,
-      String phone, String countryCode) {
+      String phone, String countryCode, String picture) {
     return _RegisterObject(
       userName,
       password,
       email,
       phone,
       countryCode,
+      picture,
     );
   }
 }
@@ -186,6 +187,7 @@ mixin _$RegisterObject {
   String get email => throw _privateConstructorUsedError;
   String get phone => throw _privateConstructorUsedError;
   String get countryCode => throw _privateConstructorUsedError;
+  String get picture => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RegisterObjectCopyWith<RegisterObject> get copyWith =>
@@ -202,7 +204,8 @@ abstract class $RegisterObjectCopyWith<$Res> {
       String password,
       String email,
       String phone,
-      String countryCode});
+      String countryCode,
+      String picture});
 }
 
 /// @nodoc
@@ -221,6 +224,7 @@ class _$RegisterObjectCopyWithImpl<$Res>
     Object? email = freezed,
     Object? phone = freezed,
     Object? countryCode = freezed,
+    Object? picture = freezed,
   }) {
     return _then(_value.copyWith(
       userName: userName == freezed
@@ -243,6 +247,10 @@ class _$RegisterObjectCopyWithImpl<$Res>
           ? _value.countryCode
           : countryCode // ignore: cast_nullable_to_non_nullable
               as String,
+      picture: picture == freezed
+          ? _value.picture
+          : picture // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -259,7 +267,8 @@ abstract class _$RegisterObjectCopyWith<$Res>
       String password,
       String email,
       String phone,
-      String countryCode});
+      String countryCode,
+      String picture});
 }
 
 /// @nodoc
@@ -280,6 +289,7 @@ class __$RegisterObjectCopyWithImpl<$Res>
     Object? email = freezed,
     Object? phone = freezed,
     Object? countryCode = freezed,
+    Object? picture = freezed,
   }) {
     return _then(_RegisterObject(
       userName == freezed
@@ -302,6 +312,10 @@ class __$RegisterObjectCopyWithImpl<$Res>
           ? _value.countryCode
           : countryCode // ignore: cast_nullable_to_non_nullable
               as String,
+      picture == freezed
+          ? _value.picture
+          : picture // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -309,8 +323,8 @@ class __$RegisterObjectCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_RegisterObject implements _RegisterObject {
-  _$_RegisterObject(
-      this.userName, this.password, this.email, this.phone, this.countryCode);
+  _$_RegisterObject(this.userName, this.password, this.email, this.phone,
+      this.countryCode, this.picture);
 
   @override
   final String userName;
@@ -322,10 +336,12 @@ class _$_RegisterObject implements _RegisterObject {
   final String phone;
   @override
   final String countryCode;
+  @override
+  final String picture;
 
   @override
   String toString() {
-    return 'RegisterObject(userName: $userName, password: $password, email: $email, phone: $phone, countryCode: $countryCode)';
+    return 'RegisterObject(userName: $userName, password: $password, email: $email, phone: $phone, countryCode: $countryCode, picture: $picture)';
   }
 
   @override
@@ -338,7 +354,8 @@ class _$_RegisterObject implements _RegisterObject {
             const DeepCollectionEquality().equals(other.email, email) &&
             const DeepCollectionEquality().equals(other.phone, phone) &&
             const DeepCollectionEquality()
-                .equals(other.countryCode, countryCode));
+                .equals(other.countryCode, countryCode) &&
+            const DeepCollectionEquality().equals(other.picture, picture));
   }
 
   @override
@@ -348,7 +365,8 @@ class _$_RegisterObject implements _RegisterObject {
       const DeepCollectionEquality().hash(password),
       const DeepCollectionEquality().hash(email),
       const DeepCollectionEquality().hash(phone),
-      const DeepCollectionEquality().hash(countryCode));
+      const DeepCollectionEquality().hash(countryCode),
+      const DeepCollectionEquality().hash(picture));
 
   @JsonKey(ignore: true)
   @override
@@ -358,7 +376,7 @@ class _$_RegisterObject implements _RegisterObject {
 
 abstract class _RegisterObject implements RegisterObject {
   factory _RegisterObject(String userName, String password, String email,
-      String phone, String countryCode) = _$_RegisterObject;
+      String phone, String countryCode, String picture) = _$_RegisterObject;
 
   @override
   String get userName;
@@ -370,6 +388,8 @@ abstract class _RegisterObject implements RegisterObject {
   String get phone;
   @override
   String get countryCode;
+  @override
+  String get picture;
   @override
   @JsonKey(ignore: true)
   _$RegisterObjectCopyWith<_RegisterObject> get copyWith =>

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:html';
 
 import 'package:tut_advanced_clean_arch/domain_layer/usecase/register_usecase/register_usecase.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer.dart';
@@ -22,10 +23,12 @@ class RegisterViewModel extends BaseViewModel
       StreamController<String>.broadcast();
   final StreamController _passwordStreamController =
       StreamController<String>.broadcast();
+  final StreamController _pictureStreamController =
+      StreamController<String>.broadcast();
   final StreamController _allInputsValidationStreamController =
       StreamController<String>.broadcast();
 
-  RegisterObject _registerObject = RegisterObject("", "", "", "", "");
+  RegisterObject _registerObject = RegisterObject("", "", "", "", "", "");
 
   RegisterViewModel(this._registerUseCase);
 
@@ -56,6 +59,8 @@ class RegisterViewModel extends BaseViewModel
   @override
   Sink get isAllInputs => _allInputsValidationStreamController.sink;
 
+  @override
+  Sink get photoInput => _pictureStreamController.sink;
 
   /// Email
   @override
@@ -63,9 +68,8 @@ class RegisterViewModel extends BaseViewModel
       _emailStreamController.stream.map((email) => _isEmailValid(email));
 
   @override
-  Stream<String?> get emailValidationMessage => emailValidation.map((isEmailValid) => isEmailValid ? null : AppStrings.emailErrorMessage) ;
-
-
+  Stream<String?> get emailValidationMessage => emailValidation.map(
+      (isEmailValid) => isEmailValid ? null : AppStrings.emailErrorMessage);
 
   /// Password
   @override
@@ -73,7 +77,9 @@ class RegisterViewModel extends BaseViewModel
       .map((password) => _isPasswordValid(password));
 
   @override
-  Stream<String?> get passwordValidationMessage => passwordValidation.map((isPasswordValid) => isPasswordValid ? null : AppStrings.passwordErrorMessage);
+  Stream<String?> get passwordValidationMessage =>
+      passwordValidation.map((isPasswordValid) =>
+          isPasswordValid ? null : AppStrings.passwordErrorMessage);
 
   ///  Phone
 
@@ -81,9 +87,9 @@ class RegisterViewModel extends BaseViewModel
   Stream<bool> get phoneValidation =>
       _phoneStreamController.stream.map((phone) => _isPhoneValid(phone));
 
-
   @override
-  Stream<String?> get phoneValidationMessage => phoneValidation.map((isPhoneValid) => isPhoneValid ?  null : AppStrings.phoneErrorMessage);
+  Stream<String?> get phoneValidationMessage => phoneValidation.map(
+      (isPhoneValid) => isPhoneValid ? null : AppStrings.phoneErrorMessage);
 
   ///Country code
   @override
@@ -91,19 +97,22 @@ class RegisterViewModel extends BaseViewModel
       .map((countryCode) => _isCountyCodeValid(countryCode));
 
   @override
-  Stream<String?> get countryCodeValidationMessage => countryCodeValidation.map((isCountryCodeValid) =>  isCountryCodeValid ? null : AppStrings.countyCodeErrorMessage);
-
+  Stream<String?> get countryCodeValidationMessage =>
+      countryCodeValidation.map((isCountryCodeValid) =>
+          isCountryCodeValid ? null : AppStrings.countyCodeErrorMessage);
 
   ///UserName
   @override
   Stream<bool> get userNameValidation => _userNameStreamController.stream
       .map((userName) => _isUserNameValid(userName));
 
+  @override
+  Stream<String?> get userNameValidationMessage => userNameValidation.map(
+      (isUserNameValid) => isUserNameValid ? null : AppStrings.useNameError);
 
   @override
-  Stream<String?> get userNameValidationMessage => userNameValidation.map((isUserNameValid) =>  isUserNameValid ? null : AppStrings.useNameError);
-
-
+  Stream<File?> get photoValidationMessage =>
+      _pictureStreamController.stream.map((file) => file);
 
   /// All inputs Validation
   @override
@@ -138,31 +147,73 @@ class RegisterViewModel extends BaseViewModel
   @override
   setCountryCode(String countryCode) {
     _countryCodeStreamController.add(countryCode);
-    _registerObject = _registerObject.copyWith(countryCode: countryCode);
+    if (_isCountyCodeValid(countryCode)) {
+      _registerObject = _registerObject.copyWith(countryCode: countryCode);
+    } else {
+      _registerObject = _registerObject.copyWith(countryCode: "");
+    }
+
+    _validate();
   }
 
   @override
   setEmail(String email) {
     _emailStreamController.add(email);
-    _registerObject = _registerObject.copyWith(email: email);
+
+    if (_isEmailValid(email)) {
+      _registerObject = _registerObject.copyWith(email: email);
+    } else {
+      _registerObject = _registerObject.copyWith(email: "");
+    }
+    _validate();
   }
 
   @override
   setPassword(String password) {
     _passwordStreamController.add(password);
-    _registerObject = _registerObject.copyWith(password: password);
+
+    if (_isPasswordValid(password)) {
+      _registerObject = _registerObject.copyWith(password: password);
+    } else {
+      _registerObject = _registerObject.copyWith(password: "");
+    }
+
+    _validate();
   }
 
   @override
   setPhone(String phone) {
-    _phoneStreamController.add(phone);
-    _registerObject = _registerObject.copyWith(phone: phone);
+    if (_isPhoneValid(phone)) {
+      _phoneStreamController.add(phone);
+      _registerObject = _registerObject.copyWith(phone: phone);
+    } else {
+      _registerObject = _registerObject.copyWith(phone: "");
+    }
+    _validate();
   }
 
   @override
   setUserName(String userName) {
     _userNameStreamController.add(userName);
-    _registerObject = _registerObject.copyWith(userName: userName);
+
+    if (_isUserNameValid(userName)) {
+      _registerObject = _registerObject.copyWith(userName: userName);
+    } else {
+      _registerObject = _registerObject.copyWith(userName: "");
+    }
+    _validate();
+  }
+
+  @override
+  setPhoto(File photo) {
+    _pictureStreamController.add(photo);
+    if (photo.relativePath != null) {
+      _registerObject =
+          _registerObject.copyWith(picture: photo.relativePath ?? "");
+    } else {
+      _registerObject = _registerObject.copyWith(picture: "");
+    }
+    _validate();
   }
 
   @override
@@ -171,16 +222,17 @@ class RegisterViewModel extends BaseViewModel
         LoadingState(stateRendererType: StateRendererType.popupLoadingState));
   }
 
-
-
-
+  _validate() {
+    _allInputsValidationStreamController.add(null);
+  }
 }
-
 
 abstract class RegisterViewModelInputs {
   setUserName(String userName);
 
   setPassword(String password);
+
+  setPhoto(File photo);
 
   setEmail(String email);
 
@@ -200,26 +252,33 @@ abstract class RegisterViewModelInputs {
 
   Sink get countryCodeInput;
 
+  Sink get photoInput;
+
   Sink get isAllInputs;
 }
 
 abstract class RegisterViewModelOutputs {
   Stream<bool> get userNameValidation;
+
   Stream<String?> get userNameValidationMessage;
 
   Stream<bool> get passwordValidation;
+
   Stream<String?> get passwordValidationMessage;
 
-
   Stream<bool> get emailValidation;
+
   Stream<String?> get emailValidationMessage;
 
   Stream<bool> get phoneValidation;
+
   Stream<String?> get phoneValidationMessage;
 
   Stream<bool> get countryCodeValidation;
+
   Stream<String?> get countryCodeValidationMessage;
 
+  Stream<File?> get photoValidationMessage;
 
   Stream<bool> get isAllInputsAreValid;
 }

@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:dartz/dartz.dart';
 
 import 'package:tut_advanced_clean_arch/data_layer/data_source/network/failure.dart';
@@ -22,7 +24,8 @@ class RegisterUseCase
             input.password,
             input.userName,
             input.phone,
-            input.countryCode));
+            input.countryCode,
+           input.picture));
   }
 }
 
@@ -32,7 +35,8 @@ class RegisterUseCaseInput {
   String userName;
   String phone;
   String countryCode;
+  File picture;
 
   RegisterUseCaseInput(
-      this.email, this.password, this.userName, this.phone, this.countryCode);
+      this.email, this.password, this.userName, this.phone, this.countryCode, this.picture);
 }

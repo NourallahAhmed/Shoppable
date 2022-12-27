@@ -33,4 +33,6 @@ class AppStrings{
 
   static const String  countyCodeErrorMessage = "Country code is wrong";
 
+  static const String phone = "0123456789";
+
 }
