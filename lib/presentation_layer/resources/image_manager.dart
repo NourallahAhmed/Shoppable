@@ -21,5 +21,6 @@ class IconManager{
   static IconData solidCircle = Icons.circle;
   static IconData hollowCircle = Icons.circle_outlined;
   static IconData cameraIcon = Icons.camera_alt_outlined;
+  static IconData galleryIcon = Icons.camera;
 
 }

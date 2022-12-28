@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tut_advanced_clean_arch/application_layer/api_constants.dart';
@@ -83,13 +84,17 @@ initForgetPasswordModule(){
 initRegisterModule(){
   if (!GetIt.I.isRegistered<RegisterUseCase>()) {
 
-    ///  LoginUseCase
+    ///  RegisterUseCase
     instance.registerFactory<RegisterUseCase>(() =>
         RegisterUseCase(instance<Repository>()));
 
-    /// login view model
+    /// Register view model
     instance.registerFactory<RegisterViewModel>(() =>
         RegisterViewModel(instance<RegisterUseCase>()));
+
+
+
+    instance.registerFactory<ImagePicker>(() => ImagePicker());
   }
 
 }

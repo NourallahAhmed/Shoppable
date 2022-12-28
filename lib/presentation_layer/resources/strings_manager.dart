@@ -33,10 +33,12 @@ class AppStrings{
 
   static const String  countyCodeErrorMessage = "Country code is wrong";
 
-  static const String phone = "0123456789";
+  static const String phone = "Phone number";
 
   static const  String errorPhoto = "Error while picking the photo try again!";
 
   static const String photo = "Profile picture";
+  static const String photoFromGallery = "Photo from gallery";
+  static const String photoFromCamera = "Photo from camera";
 
 }

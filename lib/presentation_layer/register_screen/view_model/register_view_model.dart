@@ -116,8 +116,8 @@ class RegisterViewModel extends BaseViewModel
       (isUserNameValid) => isUserNameValid ? null : AppStrings.useNameError);
 
   @override
-  Stream<File?> get photoValidation =>
-      _pictureStreamController.stream.map((file) =>  _isPhotoValid(file));
+  Stream<File> get photoValidation =>
+      _pictureStreamController.stream.map((file) => file);
 
   // @override
   // Stream<String?> get photoValidationMessage => photoValidation.map((file) => _isPhotoValid(file));
@@ -129,14 +129,7 @@ class RegisterViewModel extends BaseViewModel
           .map((event) => _isAllInputsAreValid());
 
   ///Validations
-   File? _isPhotoValid(File? photo){
-    if(photo!.path.isNotEmpty && photo != null){
-      return photo;
-    }
-    else{
-      return null;
-    }
-  }
+
   _isPhoneValid(String phone) => phone.length >= 11;
 
   _isEmailValid(String email) => email.isNotEmpty; //todo: emailValid Method
@@ -308,7 +301,7 @@ abstract class RegisterViewModelOutputs {
 
   Stream<String?> get countryCodeValidationMessage;
 
-  Stream<File?> get photoValidation;
+  Stream<File> get photoValidation;
   // Stream<String?> get photoValidationMessage;
 
   Stream<bool> get isAllInputsAreValid;

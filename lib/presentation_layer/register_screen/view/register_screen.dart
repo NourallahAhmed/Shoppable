@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/resources/color_manager.dart';
+import 'package:tut_advanced_clean_arch/presentation_layer/resources/style_manager.dart';
 
 import '../../../application_layer/dependency_injection.dart';
 import '../../common/state_randerer/state_renderer_impl.dart';
@@ -29,7 +31,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _countryCodeController = TextEditingController();
-  final TextEditingController _pictureController = TextEditingController();
+
+  final ImagePicker _imagePicker = instance<ImagePicker>();
 
   _bind() {
     _registerViewModel.start();
@@ -89,7 +92,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
           ///image
           Padding(
-            padding: const EdgeInsets.only(top: AppPadding.p100),
+            padding: const EdgeInsets.only(top: AppPadding.p18),
             child: Center(
               child: Image.asset(ImageManager.logo),
             ),
@@ -189,7 +192,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       .setCountryCode(country.code ?? "+02");
                                 },
                                 // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                                initialSelection: '+02',
+                                initialSelection: 'eg',
                                 favorite: const ['+39', 'FR'],
                                 // optional. Shows only country name and flag
                                 showCountryOnly: true,
@@ -252,37 +255,76 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Container(
 
       decoration: BoxDecoration(
-          border: Border.all(color: ColorManager.lightBlack)
+          borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
+          border: Border.all(color: ColorManager.black)
       ),
-      child: Row(
-        children: [
-          const Flexible(child: Text(AppStrings.photo)),
-          Flexible(child: StreamBuilder<File?>(
-            stream: _registerViewModel.photoValidation,
-            builder: (context, snapShot) {
-              return _showPickedImage(snapShot.data);
-            }
-          )),
-          Flexible(child: Icon(IconManager.cameraIcon))
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(AppPadding.p16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flexible(child: Text(AppStrings.photo.trim())),
+
+            Flexible(child: StreamBuilder<File>(
+                stream: _registerViewModel.photoValidation,
+                builder: (context, snapShot) {
+                  return _showPickedImage(snapShot.data);
+                }
+            )),
+
+            Flexible(child: Icon(IconManager.cameraIcon))
+          ],
+        ),
       ),
 
     );
   }
 
-  Widget _showPickedImage(File? photo){
-    if(photo != null) {
+  Widget _showPickedImage(File? photo) {
+    if (photo != null && photo.path.isNotEmpty) {
       return Image.file(photo);
-    }else{
-      return const Text(AppStrings.errorPhoto);
+    } else {
+      return Container(); /*Text(AppStrings.errorPhoto)*/;
     }
   }
-  Widget _showImagePicker(BuildContext context) {
-    return Container(
 
-    );
+  _showImagePicker(BuildContext context) {
+     showModalBottomSheet(context: context,
+        builder: (BuildContext context){
+          return Wrap(
+            children: [
+              ListTile(
+                leading: Icon(IconManager.galleryIcon , color: ColorManager.primary,) ,
+                // trailing: Icon(Icons.arrow_forward),
+                title: Text(AppStrings.photoFromGallery , style: getRegularStyle(color: ColorManager.grey , fontSize: AppSize.s14)),
+                onTap: (){
+                      _imageFromGallery();
+                },
+              ),
+
+              ListTile(
+                leading: Icon(IconManager.cameraIcon , color: ColorManager.primary) ,
+                // trailing: Icon(Icons.arrow_forward),
+                title: Text(AppStrings.photoFromCamera , style: getRegularStyle(color: ColorManager.grey , fontSize: AppSize.s14),),
+                onTap: () {
+                  _imageFromCamera();
+                },
+              ),
+
+            ],
+          );
+
+
+        });
   }
-
+  _imageFromGallery() async{
+    var image = await _imagePicker.pickImage(source: ImageSource.gallery);
+    _registerViewModel.setPhoto(File(image?.path ?? ""));
+  }
+  _imageFromCamera() async {
+    var image = await _imagePicker.pickImage(source: ImageSource.camera);
+    _registerViewModel.setPhoto(File(image?.path ?? ""));
+  }
   @override
   dispose() {
     _registerViewModel.dispose();
