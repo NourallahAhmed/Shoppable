@@ -25,9 +25,9 @@ class RegisterViewModel extends BaseViewModel
   final StreamController _passwordStreamController =
       StreamController<String>.broadcast();
   final StreamController _pictureStreamController =
-      StreamController<String>.broadcast();
+      StreamController<File>.broadcast();
   final StreamController _allInputsValidationStreamController =
-      StreamController<String>.broadcast();
+      StreamController<void>.broadcast();
   final StreamController isRegisteredSuccessfullyStreamController =
       StreamController<String>.broadcast();
 
@@ -70,7 +70,7 @@ class RegisterViewModel extends BaseViewModel
   /// Email
   @override
   Stream<bool> get emailValidation =>
-      _emailStreamController.stream.map((email) => _isEmailValid(email));
+      _emailStreamController.stream.map((email) => isEmailValid(email));
 
   @override
   Stream<String?> get emailValidationMessage => emailValidation.map(
@@ -89,11 +89,11 @@ class RegisterViewModel extends BaseViewModel
   ///  Phone
 
   @override
-  Stream<bool> get phoneValidation =>
+  Stream<bool> get outputPhone =>
       _phoneStreamController.stream.map((phone) => _isPhoneValid(phone));
 
   @override
-  Stream<String?> get phoneValidationMessage => phoneValidation.map(
+  Stream<String?> get phoneValidationMessage => outputPhone.map(
       (isPhoneValid) => isPhoneValid ? null : AppStrings.phoneErrorMessage);
 
   ///Country code
@@ -116,7 +116,7 @@ class RegisterViewModel extends BaseViewModel
       (isUserNameValid) => isUserNameValid ? null : AppStrings.useNameError);
 
   @override
-  Stream<File> get photoValidation =>
+  Stream<File> get outputPicture =>
       _pictureStreamController.stream.map((file) => file);
 
   // @override
@@ -130,21 +130,29 @@ class RegisterViewModel extends BaseViewModel
 
   ///Validations
 
-  _isPhoneValid(String phone) => phone.length >= 11;
+  bool _isPhoneValid(String phone) {
+    return phone.length <= 11;
+  }
 
   _isEmailValid(String email) => email.isNotEmpty; //todo: emailValid Method
 
-  _isPasswordValid(String password) => password.length >= 8;
+  bool isEmailValid(String email) {
+    return RegExp(
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(email);
+  }
 
-  _isCountyCodeValid(String countryCode) => countryCode.isNotEmpty;
+  bool _isPasswordValid(String password) => password.length >= 8;
 
-  _isUserNameValid(String userName) => userName.isNotEmpty;
+  bool _isCountyCodeValid(String countryCode) => countryCode.isNotEmpty;
 
-  _isAllInputsAreValid() {
-    return _isUserNameValid(_registerObject.userName) ||
-        _isPasswordValid(_registerObject.password) ||
-        _isCountyCodeValid(_registerObject.countryCode) ||
-        _isEmailValid(_registerObject.email) ||
+  bool _isUserNameValid(String userName) => userName.isNotEmpty;
+
+  bool _isAllInputsAreValid() {
+    return _isUserNameValid(_registerObject.userName) &&
+        _isPasswordValid(_registerObject.password) &&
+        _isCountyCodeValid(_registerObject.countryCode) &&
+        _isEmailValid(_registerObject.email) &&
         _isPhoneValid(_registerObject.phone);
   }
 
@@ -153,9 +161,13 @@ class RegisterViewModel extends BaseViewModel
     inputFlowState.add(ContentState());
   }
 
+
+
+  /// -- Setters
   @override
   setCountryCode(String countryCode) {
     _countryCodeStreamController.add(countryCode);
+    _allInputsValidationStreamController.add(null);
     if (_isCountyCodeValid(countryCode)) {
       _registerObject = _registerObject.copyWith(countryCode: countryCode);
     } else {
@@ -168,8 +180,9 @@ class RegisterViewModel extends BaseViewModel
   @override
   setEmail(String email) {
     _emailStreamController.add(email);
+    _allInputsValidationStreamController.add(null);
 
-    if (_isEmailValid(email)) {
+    if (isEmailValid(email)) {
       _registerObject = _registerObject.copyWith(email: email);
     } else {
       _registerObject = _registerObject.copyWith(email: "");
@@ -180,6 +193,7 @@ class RegisterViewModel extends BaseViewModel
   @override
   setPassword(String password) {
     _passwordStreamController.add(password);
+    _allInputsValidationStreamController.add(null);
 
     if (_isPasswordValid(password)) {
       _registerObject = _registerObject.copyWith(password: password);
@@ -195,6 +209,8 @@ class RegisterViewModel extends BaseViewModel
     if (_isPhoneValid(phone)) {
       _phoneStreamController.add(phone);
       _registerObject = _registerObject.copyWith(phone: phone);
+      _allInputsValidationStreamController.add(null);
+
     } else {
       _registerObject = _registerObject.copyWith(phone: "");
     }
@@ -204,6 +220,7 @@ class RegisterViewModel extends BaseViewModel
   @override
   setUserName(String userName) {
     _userNameStreamController.add(userName);
+    _allInputsValidationStreamController.add(null);
 
     if (_isUserNameValid(userName)) {
       _registerObject = _registerObject.copyWith(userName: userName);
@@ -216,7 +233,11 @@ class RegisterViewModel extends BaseViewModel
   @override
   setPhoto(File photo) {
     _pictureStreamController.add(photo);
-    if (photo.path != null) {
+    _allInputsValidationStreamController.add(null);
+
+    print("from view model");
+    print(photo.path);
+    if (photo.path.isNotEmpty) {
       _registerObject =
           _registerObject.copyWith(picture: photo.path );
     } else {
@@ -293,7 +314,7 @@ abstract class RegisterViewModelOutputs {
 
   Stream<String?> get emailValidationMessage;
 
-  Stream<bool> get phoneValidation;
+  Stream<bool> get outputPhone;
 
   Stream<String?> get phoneValidationMessage;
 
@@ -301,7 +322,7 @@ abstract class RegisterViewModelOutputs {
 
   Stream<String?> get countryCodeValidationMessage;
 
-  Stream<File> get photoValidation;
+  Stream<File> get outputPicture;
   // Stream<String?> get photoValidationMessage;
 
   Stream<bool> get isAllInputsAreValid;

@@ -35,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if(isLoggedIn){
       SchedulerBinding.instance.addPostFrameCallback((_) {
-        Navigator.of(context).pushReplacementNamed(Routes.homeScreen);
+        Navigator.of(context).pushReplacementNamed(Routes.mainScreen);
       });
       }
     });

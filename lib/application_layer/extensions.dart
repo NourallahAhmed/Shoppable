@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'app_constants.dart';
 
 extension NotNullString on String?{
@@ -15,6 +17,16 @@ extension NotNullInteger on int?{
   int notZero(){
     if(this == null){
       return  AppConstants.zero ; // 0 = success  it might be one not zero
+    }
+    else{
+      return this! ;
+    }
+  }
+}
+extension NotNullDouble on double?{
+  double notZero(){
+    if(this == null){
+      return  AppConstants.zeroDouble ; // 0 = success  it might be one not zero
     }
     else{
       return this! ;

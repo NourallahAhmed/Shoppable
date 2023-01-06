@@ -31,4 +31,12 @@ abstract class ServerClient {
       @Field("country_code") String countryCode,
 
       );
+
+  @GET(ApiConstants.ads)
+  Future<List<AdResponse>> getAds();
+
+
+
+
+
 }

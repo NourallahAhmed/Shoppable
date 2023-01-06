@@ -8,7 +8,6 @@ import 'package:tut_advanced_clean_arch/presentation_layer/resources/color_manag
 import 'package:tut_advanced_clean_arch/presentation_layer/resources/style_manager.dart';
 
 import '../../../application_layer/dependency_injection.dart';
-import '../../common/state_randerer/state_renderer_impl.dart';
 import '../../resources/image_manager.dart';
 import '../../resources/routes_manager.dart';
 import '../../resources/strings_manager.dart';
@@ -56,7 +55,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         .listen((isRegistered) {
       if (isRegistered) {
         SchedulerBinding.instance.addPostFrameCallback((_) {
-          Navigator.of(context).pushReplacementNamed(Routes.homeScreen);
+          Navigator.of(context).pushReplacementNamed(Routes.mainScreen);
         });
       }
     });
@@ -140,7 +139,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             keyboardType: TextInputType.emailAddress,
                             controller: _emailController,
                             decoration: InputDecoration(
-                              label: Text(AppStrings.email),
+                              label: const Text(AppStrings.email),
                               hintText: AppStrings.email,
                               errorText: snapShot.data,
                             ));
@@ -245,6 +244,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
           ///buttons
           ///register
+          Padding(
+              padding: const EdgeInsets.only(
+                  left: AppPadding.p28, right: AppPadding.p28),
+              child: StreamBuilder<bool>(
+                  stream: _registerViewModel.isAllInputsAreValid,
+                  builder: (context, snapshot) {
+                    return SizedBox(
+                      height: AppSize.s50,
+                      width: double.infinity,
+                      child: ElevatedButton(
+                          onPressed:
+                          (snapshot.data ?? false  )
+                              ? () {
+                            // _registerViewModel.register();
+
+                            Navigator.pushReplacementNamed(context, Routes.homeScreen);
+                          }
+                              : null ,
+                          child: Text(AppStrings.register)),
+                    );
+                  })),
           ///already have account
         ],
       ),
@@ -253,20 +273,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   Widget _getMediaSection() {
     return Container(
-
+      padding: const EdgeInsets.only(left: AppPadding.p8 , right: AppPadding.p8 , bottom: AppPadding.p18 , top: AppPadding.p8),
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
           border: Border.all(color: ColorManager.black)
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(AppPadding.p16),
-        child: Row(
+      child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Flexible(child: Text(AppStrings.photo.trim())),
 
             Flexible(child: StreamBuilder<File>(
-                stream: _registerViewModel.photoValidation,
+                stream: _registerViewModel.outputPicture,
                 builder: (context, snapShot) {
                   return _showPickedImage(snapShot.data);
                 }
@@ -275,12 +293,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
             Flexible(child: Icon(IconManager.cameraIcon))
           ],
         ),
-      ),
+
 
     );
   }
 
   Widget _showPickedImage(File? photo) {
+    print(photo?.path ?? "Path Empty");
     if (photo != null && photo.path.isNotEmpty) {
       return Image.file(photo);
     } else {
@@ -299,6 +318,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 title: Text(AppStrings.photoFromGallery , style: getRegularStyle(color: ColorManager.grey , fontSize: AppSize.s14)),
                 onTap: (){
                       _imageFromGallery();
+                      Navigator.of(context).pop();
                 },
               ),
 
@@ -308,9 +328,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 title: Text(AppStrings.photoFromCamera , style: getRegularStyle(color: ColorManager.grey , fontSize: AppSize.s14),),
                 onTap: () {
                   _imageFromCamera();
+                  Navigator.of(context).pop();
+
                 },
               ),
-
             ],
           );
 
@@ -318,8 +339,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
         });
   }
   _imageFromGallery() async{
+    print("image from gallery");
     var image = await _imagePicker.pickImage(source: ImageSource.gallery);
+    print("image from gallery");
+
+    print(image?.path ?? "EMPTY");
     _registerViewModel.setPhoto(File(image?.path ?? ""));
+    print("Finished");
   }
   _imageFromCamera() async {
     var image = await _imagePicker.pickImage(source: ImageSource.camera);

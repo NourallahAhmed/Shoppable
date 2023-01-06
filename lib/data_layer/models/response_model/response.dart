@@ -2,7 +2,8 @@
 import 'package:json_annotation/json_annotation.dart';
 
 
-/// commend line: flutter pub get && flutter pub run build_runner build --delete-conflicting-outputs
+/// commend line:
+/// flutter pub get && flutter pub run build_runner build --delete-conflicting-outputs
 
 part 'response.g.dart';
 
@@ -52,7 +53,6 @@ class ContactsResponse{
   Map<String, dynamic> toJson() => _$ContactsResponseToJson(this);
 }
 
-
 @JsonSerializable()
 class ForgetPasswordResponse extends BaseResponse{
   @JsonKey(name: "support")
@@ -66,6 +66,7 @@ class ForgetPasswordResponse extends BaseResponse{
   //toJson
   Map<String, dynamic> toJson() => _$ForgetPasswordResponseToJson(this);
 }
+
 @JsonSerializable()
 class AuthenticationResponse extends BaseResponse{
 
@@ -81,4 +82,31 @@ class AuthenticationResponse extends BaseResponse{
 
   //toJson
   Map<String, dynamic> toJson() => _$AuthenticationResponseToJson(this);
+}@JsonSerializable()
+
+@JsonSerializable()
+class AdResponse{
+  @JsonKey(name: "image")
+  String? image;
+
+  AdResponse(this.image); //fromJson
+  factory AdResponse.fromJson(Map<String, dynamic> json) => _$AdResponseFromJson(json);
+
+  //toJson
+  Map<String, dynamic> toJson() => _$AdResponseToJson(this);
 }
+@JsonSerializable()
+class AdsResponse {
+
+  List<AdResponse>? ads;
+
+
+  AdsResponse(this.ads);
+
+  //fromJson
+  factory AdsResponse.fromJson(Map<String, dynamic> json) => _$AdsResponseFromJson(json);
+
+  //toJson
+  Map<String, dynamic> toJson() => _$AdsResponseToJson(this);
+}
+

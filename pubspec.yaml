@@ -46,6 +46,9 @@ dependencies:
   lottie: ^1.2.2
   country_code_picker: ^2.0.2
   image_picker: ^0.8.6
+  curved_navigation_bar:
+  rxdart: ^0.27.7
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:

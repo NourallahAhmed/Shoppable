@@ -1,8 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:tut_advanced_clean_arch/data_layer/data_source/network/failure.dart';
 import 'package:tut_advanced_clean_arch/data_layer/data_source/remote_data_source/remote_data_source.dart';
+import 'package:tut_advanced_clean_arch/data_layer/models/mappers/ads_mappers.dart';
 import 'package:tut_advanced_clean_arch/data_layer/models/mappers/authentication_mappers.dart';
+import 'package:tut_advanced_clean_arch/data_layer/models/mappers/products_mapper.dart';
 import 'package:tut_advanced_clean_arch/data_layer/models/response_model/login_request.dart';
+import 'package:tut_advanced_clean_arch/domain_layer/model/Ads_Model.dart';
+import 'package:tut_advanced_clean_arch/domain_layer/model/product_model.dart';
 import 'package:tut_advanced_clean_arch/data_layer/models/response_model/register_request.dart';
 import 'package:tut_advanced_clean_arch/domain_layer/model/login_models.dart';
 import 'package:tut_advanced_clean_arch/domain_layer/repository/base_repository.dart';
@@ -72,6 +76,50 @@ class Repository implements BaseRepository{
               Failure(ApiInternalStatus.SUCCESS, ResponseMessage.DEFAULT));
         }
       }catch(error){
+        return Left(DataSource.DEFAULT.getFailure());
+      }
+    }else{
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Product>>> getAllProducts() async {
+    if (await _networkChecker.isConnected){
+      try{
+        final reponse = await _baseRemoteDataSource.getAllProducts();
+
+        if (reponse.isNotEmpty) {
+          return Right(reponse.toDomain());
+        } else {
+          return Left(
+              Failure(ApiInternalStatus.SUCCESS, ResponseMessage.DEFAULT));
+        }
+      }catch(error){
+        print("error ${error}");
+        return Left(DataSource.DEFAULT.getFailure());
+      }
+    }else{
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<AdsModel>>> getAds() async {
+    if (await _networkChecker.isConnected){
+      try{
+        final reponse = await _baseRemoteDataSource.getAds();
+
+        if (reponse.isNotEmpty) {
+
+          return Right(reponse.toDomain());
+        } else {
+          return Left(
+              Failure(ApiInternalStatus.SUCCESS, ResponseMessage.DEFAULT));
+        }
+      }catch(error){
+
+        print("catch error : ${error}");
         return Left(DataSource.DEFAULT.getFailure());
       }
     }else{

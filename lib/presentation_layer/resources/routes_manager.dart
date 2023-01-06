@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/details_screen/details_screen.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/home_screen/home_screen.dart';
+import 'package:tut_advanced_clean_arch/presentation_layer/home_screen/view/home_screen.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/login_screen/view/login_screen.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/onboarding_screen/view/onboarding_screen.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/register_screen/view/register_screen.dart';
@@ -9,9 +9,11 @@ import 'package:tut_advanced_clean_arch/presentation_layer/splach_screen/splash_
 
 import '../../application_layer/dependency_injection.dart';
 import '../forgetpassword_screen/view/forgetpassword_screen.dart';
+import '../main_view/main_view.dart';
 
 class Routes {
   static const splashScreen = "/";    ///  main page
+  static const mainScreen = "/main";    ///  main page
   static const onBoardingScreen = "/onBoarding";
   static const loginScreen = "/login";
   static const registerScreen = "/register";
@@ -23,6 +25,10 @@ class Routes {
 class RoutesManager {
   static Route<dynamic> getRoutes(RouteSettings settings) {
     switch (settings.name) {
+      case(Routes.mainScreen):
+        initHomeModule();
+        return MaterialPageRoute(builder: (_) => const MainView());
+
       case (Routes.splashScreen):
         return MaterialPageRoute(builder: (_) => const SplashScreen());
 
@@ -40,6 +46,7 @@ class RoutesManager {
         return MaterialPageRoute(builder: (_) => const RegisterScreen());
 
       case (Routes.homeScreen):
+        initHomeModule();
         return MaterialPageRoute(builder: (_) => const HomeScreen());
       case (Routes.detailsScreen):
         return MaterialPageRoute(builder: (_) => const DetailsScreen());

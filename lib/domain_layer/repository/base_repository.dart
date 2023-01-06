@@ -1,4 +1,6 @@
 import 'package:dartz/dartz.dart';
+import 'package:tut_advanced_clean_arch/domain_layer/model/Ads_Model.dart';
+import 'package:tut_advanced_clean_arch/domain_layer/model/product_model.dart';
 import 'package:tut_advanced_clean_arch/data_layer/models/response_model/register_request.dart';
 import 'package:tut_advanced_clean_arch/domain_layer/model/login_models.dart';
 import '../../data_layer/data_source/network/failure.dart';
@@ -8,4 +10,6 @@ abstract class BaseRepository{
   Future<Either<Failure , Authentication>> login (LoginRequest loginRequest);
   Future<Either<Failure , ForgetPassword>> forgetPassword (String email);
   Future<Either<Failure , Authentication>> register (RegisterRequest registerRequest);
+  Future<Either<Failure , List<Product>>> getAllProducts ();
+  Future<Either<Failure , List<AdsModel>>> getAds ();
 }

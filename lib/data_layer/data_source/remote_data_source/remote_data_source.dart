@@ -1,19 +1,25 @@
 import 'package:tut_advanced_clean_arch/data_layer/models/response_model/login_request.dart';
 import 'package:tut_advanced_clean_arch/data_layer/models/response_model/register_request.dart';
 import '../../models/response_model/response.dart';
+import '../../models/response_model/store_response.dart';
 import '../network/server_client.dart';
+import '../network/store_server_client.dart';
 
 abstract class BaseRemoteDataSource{
   Future<AuthenticationResponse> login(LoginRequest loginRequest);
   Future<ForgetPasswordResponse> forgetPassword(String email);
   Future<AuthenticationResponse> register(RegisterRequest registerModel);
+  Future<List<ProductResponse>> getAllProducts();
+  Future<ProductResponse> getProduct(String id);
+  Future<List<AdResponse>> getAds();
 }
 
 class RemoteDataSource implements BaseRemoteDataSource{
 
   final ServerClient _networkApi;
 
-  RemoteDataSource( this._networkApi);
+  final StoreServerClient _storeServerClient;
+  RemoteDataSource( this._networkApi , this._storeServerClient);
 
   @override
   Future<AuthenticationResponse> login(LoginRequest loginRequest) async {
@@ -37,6 +43,21 @@ class RemoteDataSource implements BaseRemoteDataSource{
 
 
     );
+  }
+
+  @override
+  Future<List<ProductResponse>> getAllProducts() async {
+   return await _storeServerClient.getAllProducts();
+  }
+
+  @override
+  Future<ProductResponse> getProduct(String id) async {
+   return await _storeServerClient.getProduct(id);
+  }
+
+  @override
+  Future<List<AdResponse>>getAds() async {
+    return await _networkApi.getAds();
   }
 
 }

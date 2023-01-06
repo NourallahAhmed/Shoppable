@@ -91,7 +91,7 @@ extension FlowStateExtension on FlowState {
           //Full Screen
           else {
             return StateRenderer(stateRendererType: getStateRendererType(),
-                retryActionFunction: retryFunction);
+                retryActionFunction: (){});
           }
         }
 

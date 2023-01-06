@@ -79,3 +79,23 @@ Map<String, dynamic> _$AuthenticationResponseToJson(
       'customer': instance.customer,
       'contacts': instance.contacts,
     };
+
+AdResponse _$AdResponseFromJson(Map<String, dynamic> json) => AdResponse(
+      json['image'] as String?,
+    );
+
+Map<String, dynamic> _$AdResponseToJson(AdResponse instance) =>
+    <String, dynamic>{
+      'image': instance.image,
+    };
+
+AdsResponse _$AdsResponseFromJson(Map<String, dynamic> json) => AdsResponse(
+      (json['ads'] as List<dynamic>?)
+          ?.map((e) => AdResponse.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$AdsResponseToJson(AdsResponse instance) =>
+    <String, dynamic>{
+      'ads': instance.ads,
+    };

@@ -41,4 +41,7 @@ class AppStrings{
   static const String photoFromGallery = "Photo from gallery";
   static const String photoFromCamera = "Photo from camera";
 
+  static const String home = "Home";
+  static const String categories = "Categories";
+
 }

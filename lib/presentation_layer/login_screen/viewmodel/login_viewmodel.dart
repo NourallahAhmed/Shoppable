@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/common/frezzed_data_classes.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer_impl.dart';

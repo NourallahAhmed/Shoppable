@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
      //check if user Logged in
 
      if(isLoggedIn ){
-        Navigator.pushReplacementNamed(context, Routes.homeScreen)
+        Navigator.pushReplacementNamed(context, Routes.mainScreen)
      }
      else{
 
