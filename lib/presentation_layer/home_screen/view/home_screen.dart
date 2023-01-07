@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:tut_advanced_clean_arch/domain_layer/model/Ads_Model.dart';
 import 'package:tut_advanced_clean_arch/domain_layer/model/product_model.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer_impl.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/home_screen/view_model/home_view_model.dart';
 
@@ -22,7 +22,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   initState() {
-    _homeViewModel.inputFlowState.add(LoadingState(stateRendererType: StateRendererType.fullScreenLoadingState));
     _homeViewModel.start();
   }
 
@@ -40,29 +39,27 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _getContentWidget() {
-    return
-      Center(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Center(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ///CarouselSlider
+            _getAdsWidget(),
 
-            children: [
-              ///CarouselSlider
-             _getAdsWidget(),
+            SizedBox(
+              height: 10,
+            ),
 
-              SizedBox(
-                height: 10,
-              ),
-              ///Categories
+            ///Categories
 
-              ///products
-              _getProductsWidget() ,
-              // _getProdcutGridView(),
-            ],
-          ),
-
-    ),
-      );
+            ///products
+            _getProductsWidget(),
+            // _getProdcutGridView(),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _getAdsWidget() {
@@ -93,122 +90,78 @@ class _HomeScreenState extends State<HomeScreen> {
                           ))
                       .toList(),
                   options: CarouselOptions(autoPlay: true))
-              : Container();
+              : Shimmer.fromColors(
+                  baseColor: ColorManager.grey,
+                  highlightColor: ColorManager.darkGrey,
+                  child: Container(
+                    height: AppSize.s200,
+                  ),
+                );
         });
   }
 
   Widget _getProductsWidget() {
- 
     return StreamBuilder<List<Product>>(
       stream: _homeViewModel.productsOutputs,
       builder: (context, snapShot) {
         return snapShot.data != null
             ? _getProductCard(snapShot.data!)
-            : Container(height: AppSize.s300,);
+            : Shimmer.fromColors(
+                baseColor: ColorManager.grey,
+                highlightColor: ColorManager.darkGrey,
+                child: Container(
+                  height: AppSize.s300,
+                ),
+              );
       },
     );
   }
 
-
-  Widget _getProdcutGridView(/*List<Product> products*/){
-    return Expanded(
-      child: GridView(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              crossAxisSpacing: 16),
-          children: [
-          Image.network('https://picsum.photos/250?image=1'),
-      Image.network('https://picsum.photos/250?image=2'),
-      Image.network('https://picsum.photos/250?image=3'),]
-      ),
-    );
-
-
-    // return GridView(
-    //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-    //       crossAxisCount: 2,),
-    //   children: products
-    //       .map((product) => Card(
-    //     elevation: AppSize.s4,
-    //     shape: RoundedRectangleBorder(
-    //         borderRadius: BorderRadius.circular(AppSize.s12),
-    //         side: BorderSide(
-    //             color: ColorManager.white, width: AppSize.s1)),
-    //     child: Column(
-    //       children: [
-    //         ClipRRect(
-    //           borderRadius: BorderRadius.circular(AppSize.s12),
-    //           child: Image.network(
-    //             product.image,
-    //             fit: BoxFit.cover,
-    //             width: AppSize.s150,
-    //             height: AppSize.s120,
-    //           ),
-    //         ),
-    //         Padding(
-    //             padding:
-    //             const EdgeInsets.only(top: AppPadding.p8),
-    //             child: Align(
-    //               alignment: Alignment.center,
-    //               child: Text(
-    //                 product.title,
-    //                 style: Theme.of(context).textTheme.bodyMedium,
-    //                 textAlign: TextAlign.center,
-    //               ),
-    //             ))
-    //       ],
-    //     ),
-    //   ))
-    //       .toList(),
-    // );
-  }
   Widget _getProductCard(List<Product> products) {
+    if (products != null) {
+      return Padding(
+        padding: const EdgeInsets.only(
+            left: AppPadding.p12, right: AppPadding.p12, top: AppPadding.p12),
+        child: Flex(
+          direction: Axis.vertical,
+          children: [
+            GridView.count(
+              crossAxisCount: AppSize.s2,
+              crossAxisSpacing: AppSize.s8,
+              mainAxisSpacing: AppSize.s8,
+              physics: const ScrollPhysics(),
+              shrinkWrap: true,
+              children: List.generate(products.length, (index) {
+                return InkWell(
+                  onTap: () {
+                    // navigate to store details screen
+                    // Navigator.of(context).pushNamed(Routes.storeDetailsRoute);
+                  },
+                  child: SizedBox(
+                    height: AppSize.s500,
+                    child: Card(
 
-    {
-      if (products != null) {
-        return  Container(
-            height: AppSize.s200,
-            margin: const EdgeInsets.symmetric(vertical: AppMargin.m12),
-            child: ListView(
-              children: products
-                  .map((product) => Card(
-                elevation: AppSize.s4,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(AppSize.s12),
-                    side: BorderSide(
-                        color: ColorManager.white, width: AppSize.s1)),
-                child: Column(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(AppSize.s12),
-                      child: Image.network(
-                        product.image,
-                        fit: BoxFit.cover,
-                        width: AppSize.s120,
-                        height: AppSize.s120,
+                      elevation: AppSize.s4,
+                      child: Column(
+                        children: [
+                          Image.network(
+                            products[index].image,
+                            fit: BoxFit.fill,
+                            height: AppSize.s90,
+                          ),
+                          Text( products[index].title.trim() , style: Theme.of(context).textTheme.titleMedium,)
+                        ],
                       ),
                     ),
-                    Padding(
-                        padding:
-                        const EdgeInsets.only(top: AppPadding.p8),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            product.title,
-                            style: Theme.of(context).textTheme.bodyMedium,
-                            textAlign: TextAlign.center,
-                          ),
-                        ))
-                  ],
-                ),
-              ))
-                  .toList(),
-            ),
-
-        );
-      } else {
-        return Container();
-      }
+                  ),
+                );
+              }),
+            )
+          ],
+        ),
+      );
+    } else {
+      return Container();
     }
   }
 

@@ -40,7 +40,7 @@ ThemeData getApplicationTheme() {
         headlineSmall: getRegularStyle(
             color: ColorManager.grey, fontSize: FontSizes.s14),
         titleMedium: getMeduimStyle(
-            color: ColorManager.primary, fontSize: FontSizes.s14),
+            color: ColorManager.primary, fontSize: FontSizes.s12),
 
         titleLarge: getMeduimStyle(
             color: ColorManager.white, fontSize: FontSizes.s14),

@@ -56,12 +56,14 @@ class StateRenderer extends StatelessWidget {
         ]);
 
       case StateRendererType.fullScreenLoadingState:
-        return getFullScreenContent([getAnimatedImage(JsonManager.loadingJson)]);
+        return getFullScreenContent([
+          getAnimatedImage(JsonManager.loadingJson),
+          Text("Loading")]);
 
       case StateRendererType.fullScreenErrorState:
         return getFullScreenContent([
           getAnimatedImage(JsonManager.errorJson),
-          getMessage(message, context),
+          getMessage(AppStrings.error, context),
           getButtonWidget(context, AppStrings.retry),
         ]);
 

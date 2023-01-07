@@ -18,6 +18,7 @@ class HomeViewModel extends BaseViewModel
   /// broadcast for multipleListener
   final _productsStreamController = BehaviorSubject<List<Product>>();
   final _adsStreamController = BehaviorSubject<List<AdsModel>>();
+  final _dataStreamController = BehaviorSubject<bool>();
 
   HomeViewModel(this._homeUseCase, this._adsUseCase);
 
@@ -31,13 +32,8 @@ class HomeViewModel extends BaseViewModel
         (l) => inputFlowState.add(ErrorState(
             stateRendererType: StateRendererType.fullScreenErrorState,
             message: l.message)), (r) {
-      _productsStreamController.add(r);
-      _adsStreamController.stream.map((event) {
-        event.isEmpty
-            ? inputFlowState.add(ContentState())
-            : inputFlowState.add(LoadingState(
-                stateRendererType: StateRendererType.fullScreenLoadingState));
-      });
+
+          _productsStreamController.add(r);
     });
 
     ///ADs
@@ -45,13 +41,8 @@ class HomeViewModel extends BaseViewModel
         (l) => inputFlowState.add(ErrorState(
             stateRendererType: StateRendererType.fullScreenErrorState,
             message: l.message)), (r) {
-      _adsStreamController.add(r);
-      _productsStreamController.stream.map((event) {
-        event.isEmpty
-            ? inputFlowState.add(ContentState())
-            : inputFlowState.add(LoadingState(
-                stateRendererType: StateRendererType.fullScreenLoadingState));
-      });
+
+          _adsStreamController.add(r);
     });
   }
 
@@ -79,16 +70,28 @@ class HomeViewModel extends BaseViewModel
     _adsStreamController.close();
     super.dispose();
   }
+
+  @override
+  Sink get dataExistInputs => _dataStreamController.sink;
+
+  @override
+  // TODO: implement dataExistOutputs
+  Stream<bool> get dataExistOutputs =>
+      _dataStreamController.stream.map((event) => event);
 }
 
 abstract class HomeViewModelInputs {
   Sink get adsInputs;
 
   Sink get productsInputs;
+
+  Sink get dataExistInputs;
 }
 
 abstract class HomeViewModelOutputs {
   Stream<List<AdsModel>> get adsOutputs;
 
   Stream<List<Product>> get productsOutputs;
+
+  Stream<bool> get dataExistOutputs;
 }

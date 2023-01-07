@@ -52,7 +52,6 @@ class LoginViewModel extends BaseViewModel
         .fold((l) =>    inputFlowState.add(ErrorState(stateRendererType: StateRendererType.popupErrorState, message: l.message)),
 
             (r) {
-              // inputFlowState.add(EmptyState("message"))
               isLoggedInSuccessfullyStreamController.add(true);
               _appPreferences.setUserLoggedIn();
               }

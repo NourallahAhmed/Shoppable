@@ -44,4 +44,6 @@ class AppStrings{
   static const String home = "Home";
   static const String categories = "Categories";
 
+  static const String error = "Error";
+
 }
