@@ -11,5 +11,10 @@ abstract class BaseRepository{
   Future<Either<Failure , ForgetPassword>> forgetPassword (String email);
   Future<Either<Failure , Authentication>> register (RegisterRequest registerRequest);
   Future<Either<Failure , List<Product>>> getAllProducts ();
+  Future<Either<Failure , List<Product>>> getMenProducts ();
+  Future<Either<Failure , List<Product>>> getWomenProducts ();
+  Future<Either<Failure , List<Product>>> getJeweleryProducts ();
+  Future<Either<Failure , List<Product>>> getElectronicsProducts ();
   Future<Either<Failure , List<AdsModel>>> getAds ();
+  Future<Either<Failure , Product>> getProductDetails (String id);
 }

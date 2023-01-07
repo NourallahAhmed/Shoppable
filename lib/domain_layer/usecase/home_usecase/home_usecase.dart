@@ -28,3 +28,44 @@ class AdsUseCase extends BaseUseCase<void,List<AdsModel>>{
     return await _repository.getAds();
   }
 }
+
+class MenProductUseCase extends BaseUseCase<void,List<Product>>{
+  final Repository _repository;
+
+  MenProductUseCase(this._repository);
+
+  @override
+  Future<Either<Failure, List<Product>>> execute(void input) async {
+    return await _repository.getMenProducts();
+  }
+}
+class WomenProductUseCase extends BaseUseCase<void,List<Product>>{
+  final Repository _repository;
+
+  WomenProductUseCase(this._repository);
+
+  @override
+  Future<Either<Failure, List<Product>>> execute(void input) async {
+    return await _repository.getWomenProducts();
+  }
+}
+class JeweleryProductUseCase extends BaseUseCase<void,List<Product>>{
+  final Repository _repository;
+
+  JeweleryProductUseCase(this._repository);
+
+  @override
+  Future<Either<Failure, List<Product>>> execute(void input) async {
+    return await _repository.getJeweleryProducts();
+  }
+}
+class ElectronicsProductUseCase extends BaseUseCase<void,List<Product>>{
+  final Repository _repository;
+
+  ElectronicsProductUseCase(this._repository);
+
+  @override
+  Future<Either<Failure, List<Product>>> execute(void input) async {
+    return await _repository.getElectronicsProducts();
+  }
+}

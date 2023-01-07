@@ -10,6 +10,10 @@ abstract class BaseRemoteDataSource{
   Future<ForgetPasswordResponse> forgetPassword(String email);
   Future<AuthenticationResponse> register(RegisterRequest registerModel);
   Future<List<ProductResponse>> getAllProducts();
+  Future<List<ProductResponse>> getMenProducts();
+  Future<List<ProductResponse>> getWomenProducts();
+  Future<List<ProductResponse>> getJewelryProducts();
+  Future<List<ProductResponse>> getElectronicsProducts();
   Future<ProductResponse> getProduct(String id);
   Future<List<AdResponse>> getAds();
 }
@@ -58,6 +62,29 @@ class RemoteDataSource implements BaseRemoteDataSource{
   @override
   Future<List<AdResponse>>getAds() async {
     return await _networkApi.getAds();
+  }
+
+  @override
+  Future<List<ProductResponse>> getElectronicsProducts() async {
+    return await _storeServerClient.getElectronicsProducts();
+  }
+
+  @override
+  Future<List<ProductResponse>> getJewelryProducts() async {
+    return await _storeServerClient.getJeweleryProducts();
+
+  }
+
+  @override
+  Future<List<ProductResponse>> getMenProducts() async {
+    return await _storeServerClient.getMenProducts();
+
+  }
+
+  @override
+  Future<List<ProductResponse>> getWomenProducts() async {
+    return await _storeServerClient.getWomenProducts();
+
   }
 
 }

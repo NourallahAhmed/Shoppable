@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/details_screen/details_screen.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/home_screen/view/home_screen.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/login_screen/view/login_screen.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/onboarding_screen/view/onboarding_screen.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/register_screen/view/register_screen.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/resources/strings_manager.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/splach_screen/splash_screen.dart';
-
 import '../../application_layer/dependency_injection.dart';
 import '../forgetpassword_screen/view/forgetpassword_screen.dart';
 import '../main_view/main_view.dart';
+import '../product_details_screen/view/details_screen.dart';
 
 class Routes {
   static const splashScreen = "/";    ///  main page
@@ -23,6 +22,12 @@ class Routes {
 }
 
 class RoutesManager {
+
+  static String  _id = "" ;
+  static setProductId(String newId) {
+    _id = newId;
+  }
+
   static Route<dynamic> getRoutes(RouteSettings settings) {
     switch (settings.name) {
       case(Routes.mainScreen):
@@ -49,6 +54,8 @@ class RoutesManager {
         initHomeModule();
         return MaterialPageRoute(builder: (_) => const HomeScreen());
       case (Routes.detailsScreen):
+
+        initDetailsScreen(_id);
         return MaterialPageRoute(builder: (_) => const DetailsScreen());
 
       case ( Routes.forgetPasswordScreen):

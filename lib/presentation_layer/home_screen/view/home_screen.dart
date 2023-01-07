@@ -1,13 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:tut_advanced_clean_arch/application_layer/api_constants.dart';
 import 'package:tut_advanced_clean_arch/domain_layer/model/Ads_Model.dart';
 import 'package:tut_advanced_clean_arch/domain_layer/model/product_model.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer_impl.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/home_screen/view_model/home_view_model.dart';
+import 'package:tut_advanced_clean_arch/presentation_layer/resources/style_manager.dart';
 
 import '../../../application_layer/dependency_injection.dart';
 import '../../resources/color_manager.dart';
+import '../../resources/routes_manager.dart';
 import '../../resources/value_manager.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -47,21 +50,46 @@ class _HomeScreenState extends State<HomeScreen> {
             ///CarouselSlider
             _getAdsWidget(),
 
-            SizedBox(
+           const SizedBox(
               height: 10,
             ),
-
-            ///Categories
-
             ///products
-            _getProductsWidget(),
-            // _getProdcutGridView(),
+            _getSectionTitle(Categories.men),
+            _getMenProductsWidget(),
+
+            _getSectionTitle(Categories.women),
+            _getWomenProductsWidget(),
+
+            _getSectionTitle(Categories.electronics),
+            _getElectronicsProductsWidget(),
+
+            _getSectionTitle(Categories.jewelery),
+            _getJeweleryProductsWidget()
           ],
         ),
       ),
     );
   }
 
+
+  Widget _getSectionTitle(String title){
+    return Padding(
+      padding: const EdgeInsets.only(
+          top: AppPadding.p12,
+          left: AppPadding.p12,
+          right: AppPadding.p12,
+          bottom: AppPadding.p2),
+      child: InkWell(
+        onTap: (){
+          Navigator.of(context).pushNamed(Routes.detailsScreen);
+        },
+        child: Text(
+          title,
+          style: getBoldStyle(color: ColorManager.primary , fontSize: AppSize.s18),
+        ),
+      ),
+    );
+  }
   Widget _getAdsWidget() {
     return StreamBuilder<List<AdsModel>>(
         stream: _homeViewModel.adsOutputs,
@@ -99,10 +127,57 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
         });
   }
-
-  Widget _getProductsWidget() {
+  Widget _getMenProductsWidget() {
     return StreamBuilder<List<Product>>(
-      stream: _homeViewModel.productsOutputs,
+      stream: _homeViewModel.menProductsOutputs,
+      builder: (context, snapShot) {
+        return snapShot.data != null
+            ? _getProductCard(snapShot.data!)
+            : Shimmer.fromColors(
+                baseColor: ColorManager.grey,
+                highlightColor: ColorManager.darkGrey,
+                child: Container(
+                  height: AppSize.s300,
+                ),
+              );
+      },
+    );
+  }
+  Widget _getWomenProductsWidget() {
+    return StreamBuilder<List<Product>>(
+      stream: _homeViewModel.womenProductsOutputs,
+      builder: (context, snapShot) {
+        return snapShot.data != null
+            ? _getProductCard(snapShot.data!)
+            : Shimmer.fromColors(
+                baseColor: ColorManager.grey,
+                highlightColor: ColorManager.darkGrey,
+                child: Container(
+                  height: AppSize.s300,
+                ),
+              );
+      },
+    );
+  }
+  Widget _getJeweleryProductsWidget() {
+    return StreamBuilder<List<Product>>(
+      stream: _homeViewModel.jeweleryProductsOutputs,
+      builder: (context, snapShot) {
+        return snapShot.data != null
+            ? _getProductCard(snapShot.data!)
+            : Shimmer.fromColors(
+                baseColor: ColorManager.grey,
+                highlightColor: ColorManager.darkGrey,
+                child: Container(
+                  height: AppSize.s300,
+                ),
+              );
+      },
+    );
+  }
+  Widget _getElectronicsProductsWidget() {
+    return StreamBuilder<List<Product>>(
+      stream: _homeViewModel.electronicsProductsOutputs,
       builder: (context, snapShot) {
         return snapShot.data != null
             ? _getProductCard(snapShot.data!)
@@ -131,26 +206,55 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisSpacing: AppSize.s8,
               physics: const ScrollPhysics(),
               shrinkWrap: true,
-              children: List.generate(products.length, (index) {
+              children: List.generate(AppSize.s4.toInt(), (index) {
                 return InkWell(
                   onTap: () {
                     // navigate to store details screen
-                    // Navigator.of(context).pushNamed(Routes.storeDetailsRoute);
+
+                    RoutesManager.setProductId(products[index].id.toString());
+                    print(products[index].id.toString());
+                    Navigator.of(context).pushNamed(Routes.detailsScreen);
                   },
                   child: SizedBox(
                     height: AppSize.s500,
                     child: Card(
-
+                      // shadowColor: ColorManager.primary,
+                      // surfaceTintColor: ColorManager.primary,
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                          BorderRadius.circular(AppSize.s12),
+                          side: BorderSide(
+                              color: ColorManager.primary,
+                              width: AppSize.s1)),
                       elevation: AppSize.s4,
-                      child: Column(
-                        children: [
-                          Image.network(
-                            products[index].image,
-                            fit: BoxFit.fill,
-                            height: AppSize.s90,
-                          ),
-                          Text( products[index].title.trim() , style: Theme.of(context).textTheme.titleMedium,)
-                        ],
+                      child: Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Image.network(
+                              products[index].image,
+                              fit: BoxFit.fill,
+                              height: AppSize.s100,
+                            ),
+                            Flexible(
+                                child: Text(
+                              products[index].title.trim(),
+                              style: Theme.of(context).textTheme.titleMedium,
+                            )),
+                            Flexible(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(AppSize.s8),
+                                  child: Align(
+
+                                    alignment: Alignment.bottomLeft,
+                                    child: Text(
+                              "${products[index].price.toString().trim()} EGP",
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                                  ),
+                                ))
+                          ],
+                        ),
                       ),
                     ),
                   ),

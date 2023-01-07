@@ -16,7 +16,24 @@ abstract class StoreServerClient{
 
 
 
-  @GET("${ApiConstants.allProducts}/{}")
-  Future<ProductResponse> getProduct(@POST("") id);
+  @GET(ApiConstants.menCategory)
+  Future<List<ProductResponse>> getMenProducts();
+
+
+  @GET(ApiConstants.womenCategory)
+  Future<List<ProductResponse>> getWomenProducts();
+
+
+  @GET(ApiConstants.jeweleryCategory)
+  Future<List<ProductResponse>> getJeweleryProducts();
+
+
+  @GET(ApiConstants.electronicsCategory)
+  Future<List<ProductResponse>> getElectronicsProducts();
+
+
+
+  @GET("${ApiConstants.allProducts}{/}")
+  Future<ProductResponse> getProduct(@Path("/") id);
 
 }

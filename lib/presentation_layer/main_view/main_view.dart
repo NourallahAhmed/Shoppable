@@ -4,7 +4,7 @@ import 'package:tut_advanced_clean_arch/presentation_layer/home_screen/view/home
 import 'package:tut_advanced_clean_arch/presentation_layer/resources/color_manager.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/resources/strings_manager.dart';
 
-import '../category_screen/view/category_screen/category_screen.dart';
+import '../category_screen/view/category_screen.dart';
 
 class MainView extends StatefulWidget {
   const MainView({Key? key}) : super(key: key);

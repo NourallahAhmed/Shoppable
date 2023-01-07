@@ -127,4 +127,109 @@ class Repository implements BaseRepository{
     }
   }
 
+  @override
+  Future<Either<Failure, List<Product>>> getElectronicsProducts()  async {
+    if (await _networkChecker.isConnected){
+      try{
+        final reponse = await _baseRemoteDataSource.getElectronicsProducts();
+
+        if (reponse.isNotEmpty) {
+          return Right(reponse.toDomain());
+        } else {
+          return Left(
+              Failure(ApiInternalStatus.SUCCESS, ResponseMessage.DEFAULT));
+        }
+      }catch(error){
+        print("error ${error}");
+        return Left(DataSource.DEFAULT.getFailure());
+      }
+    }else{
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Product>>> getJeweleryProducts()  async {
+    if (await _networkChecker.isConnected){
+      try{
+        final reponse = await _baseRemoteDataSource.getJewelryProducts();
+
+        if (reponse.isNotEmpty) {
+          return Right(reponse.toDomain());
+        } else {
+          return Left(
+              Failure(ApiInternalStatus.SUCCESS, ResponseMessage.DEFAULT));
+        }
+      }catch(error){
+        print("error ${error}");
+        return Left(DataSource.DEFAULT.getFailure());
+      }
+    }else{
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+    };
+  }
+
+  @override
+  Future<Either<Failure, List<Product>>> getMenProducts() async {
+    if (await _networkChecker.isConnected){
+      try{
+        final reponse = await _baseRemoteDataSource.getMenProducts();
+
+        if (reponse.isNotEmpty) {
+          return Right(reponse.toDomain());
+        } else {
+          return Left(
+              Failure(ApiInternalStatus.SUCCESS, ResponseMessage.DEFAULT));
+        }
+      }catch(error){
+        print("error ${error}");
+        return Left(DataSource.DEFAULT.getFailure());
+      }
+    }else{
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Product>>> getWomenProducts() async {
+    if (await _networkChecker.isConnected){
+      try{
+        final reponse = await _baseRemoteDataSource.getWomenProducts();
+
+        if (reponse.isNotEmpty) {
+          return Right(reponse.toDomain());
+        } else {
+          return Left(
+              Failure(ApiInternalStatus.SUCCESS, ResponseMessage.DEFAULT));
+        }
+      }catch(error){
+        print("error ${error}");
+        return Left(DataSource.DEFAULT.getFailure());
+      }
+    }else{
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, Product>> getProductDetails(String id) async {
+    if (await _networkChecker.isConnected){
+      try{
+        final reponse = await _baseRemoteDataSource.getProduct(id);
+
+        if (reponse != null) {
+          return Right(reponse.toDomain());
+        } else {
+          return Left(
+              Failure(ApiInternalStatus.SUCCESS, ResponseMessage.DEFAULT));
+        }
+      }catch(error){
+        print("error ${error}");
+        return Left(DataSource.DEFAULT.getFailure());
+      }
+    }else{
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+    }
+  }
+
 }

@@ -14,26 +14,63 @@ class HomeViewModel extends BaseViewModel
     with HomeViewModelInputs, HomeViewModelOutputs {
   HomeUseCase _homeUseCase;
   AdsUseCase _adsUseCase;
+  MenProductUseCase _menProductUseCase;
+  WomenProductUseCase _womenProductUseCase;
+  JeweleryProductUseCase _jeweleryProductUseCase;
+  ElectronicsProductUseCase _electronicsProductUseCase;
 
   /// broadcast for multipleListener
   final _productsStreamController = BehaviorSubject<List<Product>>();
+  final _menProductsStreamController = BehaviorSubject<List<Product>>();
+  final _womenProductsStreamController = BehaviorSubject<List<Product>>();
+  final _jeweleryProductsStreamController = BehaviorSubject<List<Product>>();
+  final _electronicsProductsStreamController = BehaviorSubject<List<Product>>();
   final _adsStreamController = BehaviorSubject<List<AdsModel>>();
   final _dataStreamController = BehaviorSubject<bool>();
 
-  HomeViewModel(this._homeUseCase, this._adsUseCase);
+  HomeViewModel(
+      this._homeUseCase,
+      this._adsUseCase,
+      this._menProductUseCase,
+      this._womenProductUseCase,
+      this._jeweleryProductUseCase,
+      this._electronicsProductUseCase);
 
   @override
   void start() async {
     inputFlowState.add(LoadingState(
         stateRendererType: StateRendererType.fullScreenLoadingState));
 
-    ///Products
-    (await _homeUseCase.execute(Void)).fold(
+    ///Electronics_Products
+    (await _electronicsProductUseCase.execute(Void)).fold(
         (l) => inputFlowState.add(ErrorState(
             stateRendererType: StateRendererType.fullScreenErrorState,
             message: l.message)), (r) {
+      _electronicsProductsStreamController.add(r);
+    });
 
-          _productsStreamController.add(r);
+    ///MenProducts
+    (await _menProductUseCase.execute(Void)).fold(
+        (l) => inputFlowState.add(ErrorState(
+            stateRendererType: StateRendererType.fullScreenErrorState,
+            message: l.message)), (r) {
+      _menProductsStreamController.add(r);
+    });
+
+    ///WomenProducts
+    (await _womenProductUseCase.execute(Void)).fold(
+        (l) => inputFlowState.add(ErrorState(
+            stateRendererType: StateRendererType.fullScreenErrorState,
+            message: l.message)), (r) {
+      _womenProductsStreamController.add(r);
+    });
+
+    ///JeweleryProducts
+    (await _jeweleryProductUseCase.execute(Void)).fold(
+        (l) => inputFlowState.add(ErrorState(
+            stateRendererType: StateRendererType.fullScreenErrorState,
+            message: l.message)), (r) {
+      _jeweleryProductsStreamController.add(r);
     });
 
     ///ADs
@@ -41,8 +78,7 @@ class HomeViewModel extends BaseViewModel
         (l) => inputFlowState.add(ErrorState(
             stateRendererType: StateRendererType.fullScreenErrorState,
             message: l.message)), (r) {
-
-          _adsStreamController.add(r);
+      _adsStreamController.add(r);
     });
   }
 
@@ -54,8 +90,6 @@ class HomeViewModel extends BaseViewModel
   Stream<List<AdsModel>> get adsOutputs =>
       _adsStreamController.stream.map((event) => event);
 
-  /// if true there is a data coming
-
   ///Products
   @override
   Sink get productsInputs => _productsStreamController.sink;
@@ -64,20 +98,42 @@ class HomeViewModel extends BaseViewModel
   Stream<List<Product>> get productsOutputs =>
       _productsStreamController.stream.map((event) => event);
 
+  ///Electronics
+  @override
+  Sink get electronicsProductsInputs =>
+      _electronicsProductsStreamController.sink;
+
+  @override
+  Stream<List<Product>> get electronicsProductsOutputs =>
+      _electronicsProductsStreamController.stream.map((event) => event);
+
+  @override
+  Sink get jeweleryProductsInputs => _jeweleryProductsStreamController.sink;
+
+  @override
+  Stream<List<Product>> get jeweleryProductsOutputs =>
+      _jeweleryProductsStreamController.stream.map((event) => event);
+
+  @override
+  Sink get menProductsInputs => _menProductsStreamController.sink;
+
+  @override
+  Stream<List<Product>> get menProductsOutputs =>
+      _menProductsStreamController.stream.map((event) => event);
+
+  @override
+  Sink get womenProductsInputs => _womenProductsStreamController.sink;
+
+  @override
+  Stream<List<Product>> get womenProductsOutputs =>
+      _womenProductsStreamController.stream.map((event) => event);
+
   @override
   dispose() {
     _productsStreamController.close();
     _adsStreamController.close();
     super.dispose();
   }
-
-  @override
-  Sink get dataExistInputs => _dataStreamController.sink;
-
-  @override
-  // TODO: implement dataExistOutputs
-  Stream<bool> get dataExistOutputs =>
-      _dataStreamController.stream.map((event) => event);
 }
 
 abstract class HomeViewModelInputs {
@@ -85,7 +141,13 @@ abstract class HomeViewModelInputs {
 
   Sink get productsInputs;
 
-  Sink get dataExistInputs;
+  Sink get menProductsInputs;
+
+  Sink get womenProductsInputs;
+
+  Sink get jeweleryProductsInputs;
+
+  Sink get electronicsProductsInputs;
 }
 
 abstract class HomeViewModelOutputs {
@@ -93,5 +155,11 @@ abstract class HomeViewModelOutputs {
 
   Stream<List<Product>> get productsOutputs;
 
-  Stream<bool> get dataExistOutputs;
+  Stream<List<Product>> get menProductsOutputs;
+
+  Stream<List<Product>> get womenProductsOutputs;
+
+  Stream<List<Product>> get jeweleryProductsOutputs;
+
+  Stream<List<Product>> get electronicsProductsOutputs;
 }

@@ -3,10 +3,14 @@ class ApiConstants{
   static const String storeBaseUrl = "https://fakestoreapi.com/";
   static const String ads = "ads";
 
-  static const String allProducts = "products";
+  static const String allProducts = "products/";
   static const String sortDesc = "/products?sort=desc";
   static const String sortAsec = "/products?sort=asec";
   static const String categories = "/products/categories";
+  static const String jeweleryCategory = "products/category/jewelery";
+  static const String womenCategory = "products/category/women's clothing";
+  static const String menCategory = "products/category/men's clothing";
+  static const String electronicsCategory = "products/category/electronics";
   static String specificCategory(String category) => "$storeBaseUrl$categories/$category";
 
   static const String loginEndPoint = "/customers/login";
