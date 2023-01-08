@@ -4,6 +4,7 @@ import 'package:tut_advanced_clean_arch/application_layer/api_constants.dart';
 import 'package:tut_advanced_clean_arch/domain_layer/model/Ads_Model.dart';
 import 'package:tut_advanced_clean_arch/domain_layer/model/product_model.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer_impl.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/home_screen/view_model/home_view_model.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/resources/style_manager.dart';
@@ -33,6 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
     return StreamBuilder<FlowState>(
         stream: _homeViewModel.outputFlowState,
         builder: (context, snapShot) {
+
+
           return snapShot.data
                   ?.getStateContentWidget(context, _getContentWidget(), () {
                 _homeViewModel.start();

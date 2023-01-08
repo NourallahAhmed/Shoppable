@@ -22,20 +22,25 @@ class ProductDetailsViewModel extends BaseViewModel
 
   @override
   void start() async {
+    print("Start");
     inputFlowState.add(LoadingState(
         stateRendererType: StateRendererType.fullScreenLoadingState));
-    (await _productDetailsUseCase.execute(_id)).fold((l) =>
-        inputFlowState.add(
-        ErrorState(stateRendererType: StateRendererType.fullScreenEmptyState, message: l.message))
-        ,
-            (r) => _productStreamController.add(r));
+
+    (await _productDetailsUseCase.execute(_id))
+        .fold(
+            (l) => inputFlowState.add(
+                  ErrorState(stateRendererType: StateRendererType.fullScreenEmptyState, message: l.message)),
+            (r) {
+              _productStreamController.add(r);
+              inputFlowState.add(ContentState());
+            }
+            );
   }
 
   @override
   Sink get productDetailsInputs => _productStreamController.sink;
 
   @override
-  // TODO: implement productDetailsOutputs
   Stream<Product> get productDetailsOutputs => _productStreamController.stream.map((event) => event);
 
 }

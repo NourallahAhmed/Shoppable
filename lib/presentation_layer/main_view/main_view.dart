@@ -1,6 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/home_screen/view/home_screen.dart';
+import 'package:tut_advanced_clean_arch/presentation_layer/product_details_screen/view/details_screen.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/resources/color_manager.dart';
 import 'package:tut_advanced_clean_arch/presentation_layer/resources/strings_manager.dart';
 
@@ -17,8 +18,8 @@ class _MainViewState extends State<MainView> {
 
   ///List of pages
   List<Widget> pages = [
-    HomeScreen(),
-    CategoryScreen()
+    const HomeScreen(),
+    const CategoryScreen()
   ];
 
   ///List of titles

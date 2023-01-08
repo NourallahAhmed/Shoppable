@@ -49,7 +49,8 @@ class LoginViewModel extends BaseViewModel
         LoadingState(stateRendererType: StateRendererType.popupLoadingState));
     (await _loginUseCase.execute(
             LoginUseCaseInput(_loginObject.userName, _loginObject.password)))
-        .fold((l) =>    inputFlowState.add(ErrorState(stateRendererType: StateRendererType.popupErrorState, message: l.message)),
+        .fold((l) =>
+              inputFlowState.add(ErrorState(stateRendererType: StateRendererType.popupErrorState, message: l.message)),
 
             (r) {
               isLoggedInSuccessfullyStreamController.add(true);
