@@ -1,4 +1,4 @@
-import 'package:tut_advanced_clean_arch/application_layer/extensions.dart';
+import '/application_layer/extensions.dart';
 
 import '../../../domain_layer/model/Ads_Model.dart';
 import '../response_model/response.dart';

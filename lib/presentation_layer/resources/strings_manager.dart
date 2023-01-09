@@ -46,4 +46,18 @@ class AppStrings{
 
   static const String error = "Error";
 
+  static const String description = "description";
+  static const String egp = "EGP";
+
+  static const String addToCart = "Add to cart";
+
+  static const String size = "Size";
+
+  static const String xSmall = "xs";
+  static const String small = "s";
+  static const String medium = "m";
+  static const String large = "l";
+  static const String xLarge = "xl";
+  static const String xxLarge = "xxl";
+
 }

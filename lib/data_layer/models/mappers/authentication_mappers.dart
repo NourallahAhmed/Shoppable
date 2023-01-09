@@ -1,5 +1,5 @@
-import 'package:tut_advanced_clean_arch/application_layer/extensions.dart';
-import 'package:tut_advanced_clean_arch/domain_layer/model/login_models.dart';
+import '/application_layer/extensions.dart';
+import '/domain_layer/model/login_models.dart';
 import '../response_model/response.dart';
 
 extension CustomerResponseExtension on CustomerResponse {

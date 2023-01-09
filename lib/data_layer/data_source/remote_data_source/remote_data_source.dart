@@ -1,5 +1,5 @@
-import 'package:tut_advanced_clean_arch/data_layer/models/response_model/login_request.dart';
-import 'package:tut_advanced_clean_arch/data_layer/models/response_model/register_request.dart';
+import '/data_layer/models/response_model/login_request.dart';
+import '/data_layer/models/response_model/register_request.dart';
 import '../../models/response_model/response.dart';
 import '../../models/response_model/store_response.dart';
 import '../network/server_client.dart';

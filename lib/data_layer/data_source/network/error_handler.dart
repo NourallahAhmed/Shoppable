@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:tut_advanced_clean_arch/data_layer/data_source/network/failure.dart';
+import '/data_layer/data_source/network/failure.dart';
 import 'network_error_messages.dart';
 
 

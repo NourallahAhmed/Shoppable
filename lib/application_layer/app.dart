@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/resources/routes_manager.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/resources/theme_manager.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/splach_screen/splash_screen.dart';
+import '/presentation_layer/resources/routes_manager.dart';
+import '/presentation_layer/resources/theme_manager.dart';
+import '/presentation_layer/splach_screen/splash_screen.dart';
 
 
 ///APP CLASS

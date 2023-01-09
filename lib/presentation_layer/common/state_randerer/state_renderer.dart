@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/resources/image_manager.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/resources/value_manager.dart';
+import '/presentation_layer/resources/image_manager.dart';
+import '/presentation_layer/resources/value_manager.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/strings_manager.dart';
 import '../../resources/style_manager.dart';

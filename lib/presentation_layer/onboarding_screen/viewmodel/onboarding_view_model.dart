@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:tut_advanced_clean_arch/domain_layer/model/onboarding_models.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/view_model_base/base_view_model.dart';
+import '/domain_layer/model/onboarding_models.dart';
+import '/presentation_layer/view_model_base/base_view_model.dart';
 
 import '../../resources/image_manager.dart';
 import '../../resources/strings_manager.dart';

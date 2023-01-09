@@ -4,8 +4,8 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/resources/color_manager.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/resources/style_manager.dart';
+import '/presentation_layer/resources/color_manager.dart';
+import '/presentation_layer/resources/style_manager.dart';
 
 import '../../../application_layer/dependency_injection.dart';
 import '../../resources/image_manager.dart';

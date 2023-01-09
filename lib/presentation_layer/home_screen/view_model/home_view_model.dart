@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:ffi';
 import 'package:rxdart/rxdart.dart';
 
-import 'package:tut_advanced_clean_arch/domain_layer/usecase/home_usecase/home_usecase.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer_impl.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/view_model_base/base_view_model.dart';
+import '/domain_layer/usecase/home_usecase/home_usecase.dart';
+import '/presentation_layer/common/state_randerer/state_renderer.dart';
+import '/presentation_layer/common/state_randerer/state_renderer_impl.dart';
+import '/presentation_layer/view_model_base/base_view_model.dart';
 
 import '../../../domain_layer/model/Ads_Model.dart';
 import '../../../domain_layer/model/product_model.dart';

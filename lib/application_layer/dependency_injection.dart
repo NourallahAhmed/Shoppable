@@ -2,18 +2,18 @@ import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tut_advanced_clean_arch/application_layer/api_constants.dart';
-import 'package:tut_advanced_clean_arch/data_layer/data_source/network/dio_factory.dart';
-import 'package:tut_advanced_clean_arch/data_layer/data_source/network/network_checker.dart';
-import 'package:tut_advanced_clean_arch/data_layer/data_source/network/store_server_client.dart';
-import 'package:tut_advanced_clean_arch/data_layer/data_source/remote_data_source/remote_data_source.dart';
-import 'package:tut_advanced_clean_arch/data_layer/repository/repository.dart';
-import 'package:tut_advanced_clean_arch/domain_layer/usecase/forget_password_usecase/forget_pasword_usecase.dart';
-import 'package:tut_advanced_clean_arch/domain_layer/usecase/home_usecase/home_usecase.dart';
-import 'package:tut_advanced_clean_arch/domain_layer/usecase/login_usecase/login_usecase.dart';
-import 'package:tut_advanced_clean_arch/domain_layer/usecase/register_usecase/register_usecase.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/login_screen/viewmodel/login_viewmodel.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/register_screen/view_model/register_view_model.dart';
+import '/application_layer/api_constants.dart';
+import '/data_layer/data_source/network/dio_factory.dart';
+import '/data_layer/data_source/network/network_checker.dart';
+import '/data_layer/data_source/network/store_server_client.dart';
+import '/data_layer/data_source/remote_data_source/remote_data_source.dart';
+import '/data_layer/repository/repository.dart';
+import '/domain_layer/usecase/forget_password_usecase/forget_pasword_usecase.dart';
+import '/domain_layer/usecase/home_usecase/home_usecase.dart';
+import '/domain_layer/usecase/login_usecase/login_usecase.dart';
+import '/domain_layer/usecase/register_usecase/register_usecase.dart';
+import '/presentation_layer/login_screen/viewmodel/login_viewmodel.dart';
+import '/presentation_layer/register_screen/view_model/register_view_model.dart';
 
 import '../data_layer/data_source/network/server_client.dart';
 import '../domain_layer/usecase/details_usecase/product_details_usecase.dart';
@@ -128,14 +128,18 @@ initHomeModule() {
   }
 }
 
-
-initDetailsScreen(String id){
-  if(!GetIt.I.isRegistered<ProductDetailsUseCase>()){
+initDetailsScreen(String id) {
+  print("id from init details screen  = $id");
+  if (!GetIt.I.isRegistered<ProductDetailsUseCase>()) {
     instance.registerFactory<ProductDetailsUseCase>(
-            () => ProductDetailsUseCase(instance<Repository>()));
+        () => ProductDetailsUseCase(instance<Repository>()));
 
     ///  view model
-    instance.registerFactory<ProductDetailsViewModel>(() => ProductDetailsViewModel(
-        instance<ProductDetailsUseCase>() , id));
+    instance.registerFactory<ProductDetailsViewModel>(
+        () => ProductDetailsViewModel(instance<ProductDetailsUseCase>(), id));
+  } else {
+    GetIt.I.unregister<ProductDetailsViewModel>();
+    instance.registerFactory<ProductDetailsViewModel>(
+            () => ProductDetailsViewModel(instance<ProductDetailsUseCase>(), id));
   }
 }

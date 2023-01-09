@@ -1,15 +1,15 @@
 import 'package:dartz/dartz.dart';
-import 'package:tut_advanced_clean_arch/data_layer/data_source/network/failure.dart';
-import 'package:tut_advanced_clean_arch/data_layer/data_source/remote_data_source/remote_data_source.dart';
-import 'package:tut_advanced_clean_arch/data_layer/models/mappers/ads_mappers.dart';
-import 'package:tut_advanced_clean_arch/data_layer/models/mappers/authentication_mappers.dart';
-import 'package:tut_advanced_clean_arch/data_layer/models/mappers/products_mapper.dart';
-import 'package:tut_advanced_clean_arch/data_layer/models/response_model/login_request.dart';
-import 'package:tut_advanced_clean_arch/domain_layer/model/Ads_Model.dart';
-import 'package:tut_advanced_clean_arch/domain_layer/model/product_model.dart';
-import 'package:tut_advanced_clean_arch/data_layer/models/response_model/register_request.dart';
-import 'package:tut_advanced_clean_arch/domain_layer/model/login_models.dart';
-import 'package:tut_advanced_clean_arch/domain_layer/repository/base_repository.dart';
+import '/data_layer/data_source/network/failure.dart';
+import '/data_layer/data_source/remote_data_source/remote_data_source.dart';
+import '/data_layer/models/mappers/ads_mappers.dart';
+import '/data_layer/models/mappers/authentication_mappers.dart';
+import '/data_layer/models/mappers/products_mapper.dart';
+import '/data_layer/models/response_model/login_request.dart';
+import '/domain_layer/model/Ads_Model.dart';
+import '/domain_layer/model/product_model.dart';
+import '/data_layer/models/response_model/register_request.dart';
+import '/domain_layer/model/login_models.dart';
+import '/domain_layer/repository/base_repository.dart';
 import '../data_source/network/error_handler.dart';
 import '../data_source/network/network_checker.dart';
 

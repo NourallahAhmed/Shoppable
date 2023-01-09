@@ -3,11 +3,11 @@
 import 'dart:async';
 
 import 'dart:io';
-import 'package:tut_advanced_clean_arch/domain_layer/usecase/register_usecase/register_usecase.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer_impl.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/resources/strings_manager.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/view_model_base/base_view_model.dart';
+import '/domain_layer/usecase/register_usecase/register_usecase.dart';
+import '/presentation_layer/common/state_randerer/state_renderer.dart';
+import '/presentation_layer/common/state_randerer/state_renderer_impl.dart';
+import '/presentation_layer/resources/strings_manager.dart';
+import '/presentation_layer/view_model_base/base_view_model.dart';
 import '../../common/frezzed_data_classes.dart';
 
 class RegisterViewModel extends BaseViewModel

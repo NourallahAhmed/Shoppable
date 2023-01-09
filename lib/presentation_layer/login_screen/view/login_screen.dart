@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:tut_advanced_clean_arch/application_layer/dependency_injection.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer_impl.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/login_screen/viewmodel/login_viewmodel.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/resources/color_manager.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/resources/value_manager.dart';
+import '/application_layer/dependency_injection.dart';
+import '/presentation_layer/common/state_randerer/state_renderer_impl.dart';
+import '/presentation_layer/login_screen/viewmodel/login_viewmodel.dart';
+import '/presentation_layer/resources/color_manager.dart';
+import '/presentation_layer/resources/value_manager.dart';
 
 import '../../resources/image_manager.dart';
 import '../../resources/routes_manager.dart';

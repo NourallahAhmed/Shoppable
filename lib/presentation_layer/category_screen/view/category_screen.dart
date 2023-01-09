@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/resources/color_manager.dart';
+import '/presentation_layer/resources/color_manager.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({Key? key}) : super(key: key);

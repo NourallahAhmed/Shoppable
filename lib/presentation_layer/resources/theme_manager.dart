@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/resources/color_manager.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/resources/font_manager.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/resources/style_manager.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/resources/value_manager.dart';
+import '/presentation_layer/resources/color_manager.dart';
+import '/presentation_layer/resources/font_manager.dart';
+import '/presentation_layer/resources/style_manager.dart';
+import '/presentation_layer/resources/value_manager.dart';
 
 ThemeData getApplicationTheme() {
   return ThemeData(
@@ -38,9 +38,10 @@ ThemeData getApplicationTheme() {
         displayLarge:
             getSemiBoldStyle(color: ColorManager.darkGrey, fontSize: FontSizes.s22),
         displayMedium: getRegularStyle(color: ColorManager.black , fontSize: AppSize.s14),
+        displaySmall: getRegularStyle(color: ColorManager.black , fontSize: AppSize.s12),
         headlineLarge : getRegularStyle(color: ColorManager.primary , fontSize: AppSize.s20),
-        headlineSmall: getRegularStyle(
-            color: ColorManager.grey, fontSize: FontSizes.s14),
+        headlineMedium: getRegularStyle(color: ColorManager.grey1),
+        headlineSmall: getRegularStyle(color: ColorManager.grey, fontSize: FontSizes.s14),
         titleMedium: getMeduimStyle(
             color: ColorManager.black, fontSize: FontSizes.s12),
 
@@ -50,7 +51,6 @@ ThemeData getApplicationTheme() {
         titleSmall: getRegularStyle(
             color: ColorManager.white, fontSize: FontSizes.s20),
 
-        headlineMedium: getRegularStyle(color: ColorManager.grey1),
 
         labelLarge: getRegularStyle(color: ColorManager.grey)),
 

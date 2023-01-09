@@ -1,8 +1,8 @@
 import 'package:rxdart/rxdart.dart';
-import 'package:tut_advanced_clean_arch/domain_layer/usecase/details_usecase/product_details_usecase.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer_impl.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/view_model_base/base_view_model.dart';
+import '/domain_layer/usecase/details_usecase/product_details_usecase.dart';
+import '/presentation_layer/common/state_randerer/state_renderer.dart';
+import '/presentation_layer/common/state_randerer/state_renderer_impl.dart';
+import '/presentation_layer/view_model_base/base_view_model.dart';
 
 import '../../../domain_layer/model/product_model.dart';
 
@@ -10,9 +10,9 @@ class ProductDetailsViewModel extends BaseViewModel
     with ProductDetailsViewModelInputs, ProductDetailsViewModelOutputs {
   final ProductDetailsUseCase _productDetailsUseCase;
   final _productStreamController = BehaviorSubject<Product>();
-  String _id;
+  String id;
 
-  ProductDetailsViewModel(this._productDetailsUseCase, this._id);
+  ProductDetailsViewModel(this._productDetailsUseCase, this.id);
 
   @override
   void dispose() {
@@ -22,11 +22,12 @@ class ProductDetailsViewModel extends BaseViewModel
 
   @override
   void start() async {
-    print("Start");
+
+    print("id ViewModel = ${id}");
     inputFlowState.add(LoadingState(
         stateRendererType: StateRendererType.fullScreenLoadingState));
 
-    (await _productDetailsUseCase.execute(_id))
+    (await _productDetailsUseCase.execute(id))
         .fold(
             (l) => inputFlowState.add(
                   ErrorState(stateRendererType: StateRendererType.fullScreenEmptyState, message: l.message)),

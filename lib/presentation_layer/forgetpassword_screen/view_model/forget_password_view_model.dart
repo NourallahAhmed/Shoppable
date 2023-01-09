@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:tut_advanced_clean_arch/domain_layer/usecase/forget_password_usecase/forget_pasword_usecase.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer_impl.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/view_model_base/base_view_model.dart';
+import '/domain_layer/usecase/forget_password_usecase/forget_pasword_usecase.dart';
+import '/presentation_layer/common/state_randerer/state_renderer.dart';
+import '/presentation_layer/common/state_randerer/state_renderer_impl.dart';
+import '/presentation_layer/view_model_base/base_view_model.dart';
 
 class ForgetPasswordViewModel extends BaseViewModel
     with ForgetPasswordViewModelInputs, ForgetPasswordViewModelOutputs {

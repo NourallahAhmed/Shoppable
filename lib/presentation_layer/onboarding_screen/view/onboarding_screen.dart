@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tut_advanced_clean_arch/application_layer/app_pref.dart';
-import 'package:tut_advanced_clean_arch/application_layer/dependency_injection.dart';
-import 'package:tut_advanced_clean_arch/domain_layer/model/onboarding_models.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/onboarding_screen/viewmodel/onboarding_view_model.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/resources/color_manager.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/resources/image_manager.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/resources/strings_manager.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/resources/value_manager.dart';
+import '/application_layer/app_pref.dart';
+import '/application_layer/dependency_injection.dart';
+import '/domain_layer/model/onboarding_models.dart';
+import '/presentation_layer/onboarding_screen/viewmodel/onboarding_view_model.dart';
+import '/presentation_layer/resources/color_manager.dart';
+import '/presentation_layer/resources/image_manager.dart';
+import '/presentation_layer/resources/strings_manager.dart';
+import '/presentation_layer/resources/value_manager.dart';
 
 import '../../resources/routes_manager.dart';
 

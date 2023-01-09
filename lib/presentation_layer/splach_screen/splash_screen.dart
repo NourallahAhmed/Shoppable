@@ -1,13 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tut_advanced_clean_arch/application_layer/app_pref.dart';
-import 'package:tut_advanced_clean_arch/application_layer/dependency_injection.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/resources/color_manager.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/resources/image_manager.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/resources/routes_manager.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/resources/value_manager.dart';
+import '/application_layer/app_pref.dart';
+import '/application_layer/dependency_injection.dart';
+import '/presentation_layer/resources/color_manager.dart';
+import '/presentation_layer/resources/image_manager.dart';
+import '/presentation_layer/resources/routes_manager.dart';
+import '/presentation_layer/resources/value_manager.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:tut_advanced_clean_arch/data_layer/data_source/network/failure.dart';
-import 'package:tut_advanced_clean_arch/domain_layer/model/login_models.dart';
-import 'package:tut_advanced_clean_arch/domain_layer/usecase/base/base_usecase.dart';
+import '/data_layer/data_source/network/failure.dart';
+import '/domain_layer/model/login_models.dart';
+import '/domain_layer/usecase/base/base_usecase.dart';
 
 import '../../../data_layer/repository/repository.dart';
 

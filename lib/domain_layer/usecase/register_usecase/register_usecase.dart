@@ -1,8 +1,8 @@
 
 import 'package:dartz/dartz.dart';
 
-import 'package:tut_advanced_clean_arch/data_layer/data_source/network/failure.dart';
-import 'package:tut_advanced_clean_arch/data_layer/models/response_model/register_request.dart';
+import '/data_layer/data_source/network/failure.dart';
+import '/data_layer/models/response_model/register_request.dart';
 
 import '../../../data_layer/repository/repository.dart';
 import '../../model/login_models.dart';

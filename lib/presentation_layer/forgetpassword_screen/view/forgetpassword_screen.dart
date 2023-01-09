@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/forgetpassword_screen/view_model/forget_password_view_model.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/resources/color_manager.dart';
+import '/presentation_layer/forgetpassword_screen/view_model/forget_password_view_model.dart';
+import '/presentation_layer/resources/color_manager.dart';
 
 import '../../../application_layer/dependency_injection.dart';
 import '../../common/state_randerer/state_renderer_impl.dart';

@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:tut_advanced_clean_arch/presentation_layer/common/frezzed_data_classes.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer_impl.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/view_model_base/base_view_model.dart';
+import '/presentation_layer/common/frezzed_data_classes.dart';
+import '/presentation_layer/common/state_randerer/state_renderer.dart';
+import '/presentation_layer/common/state_randerer/state_renderer_impl.dart';
+import '/presentation_layer/view_model_base/base_view_model.dart';
 
 import '../../../application_layer/app_pref.dart';
 import '../../../domain_layer/usecase/login_usecase/login_usecase.dart';

@@ -1,5 +1,5 @@
-import 'package:tut_advanced_clean_arch/domain_layer/model/product_model.dart';
-import 'package:tut_advanced_clean_arch/application_layer/extensions.dart';
+import '/domain_layer/model/product_model.dart';
+import '/application_layer/extensions.dart';
 
 import '../response_model/store_response.dart';
 

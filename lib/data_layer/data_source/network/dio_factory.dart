@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:tut_advanced_clean_arch/application_layer/api_constants.dart';
+import '/application_layer/api_constants.dart';
 
 import '../../../application_layer/app_pref.dart';
 

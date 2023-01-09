@@ -1,13 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:tut_advanced_clean_arch/application_layer/api_constants.dart';
-import 'package:tut_advanced_clean_arch/domain_layer/model/Ads_Model.dart';
-import 'package:tut_advanced_clean_arch/domain_layer/model/product_model.dart';
+import '/application_layer/api_constants.dart';
+import '/domain_layer/model/Ads_Model.dart';
+import '/domain_layer/model/product_model.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/common/state_randerer/state_renderer_impl.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/home_screen/view_model/home_view_model.dart';
-import 'package:tut_advanced_clean_arch/presentation_layer/resources/style_manager.dart';
+import '/presentation_layer/common/state_randerer/state_renderer.dart';
+import '/presentation_layer/common/state_randerer/state_renderer_impl.dart';
+import '/presentation_layer/home_screen/view_model/home_view_model.dart';
+import '/presentation_layer/resources/style_manager.dart';
 
 import '../../../application_layer/dependency_injection.dart';
 import '../../resources/color_manager.dart';
@@ -215,8 +215,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     // navigate to store details screen
 
                     RoutesManager.setProductId(products[index].id.toString());
-                    print(products[index].id.toString());
-                    Navigator.of(context).pushNamed(Routes.detailsScreen);
+                    print("home = ${products[index].id.toString()}");
+
+                    Navigator.pushNamed(context, Routes.detailsScreen);
+                    // Navigator.of(context).pushNamed(Routes.detailsScreen);
                   },
                   child: SizedBox(
                     height: AppSize.s500,
@@ -230,8 +232,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: ColorManager.primary,
                               width: AppSize.s1)),
                       elevation: AppSize.s4,
-                      child: Expanded(
-                        child: Column(
+                      child:  Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Image.network(
@@ -257,7 +258,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ))
                           ],
-                        ),
+
                       ),
                     ),
                   ),
@@ -275,5 +276,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   dispose() {
     _homeViewModel.dispose();
+    super.dispose();
   }
 }
