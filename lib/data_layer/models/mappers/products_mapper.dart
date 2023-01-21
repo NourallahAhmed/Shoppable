@@ -5,17 +5,35 @@ import '../response_model/store_response.dart';
 
 extension ProductResponseExtension on ProductResponse {
   Product toDomain() => Product(
-      this.id.notZero(),
-      this.title.orEmpty(),
-      this.price.notZero(),
-      this.category.orEmpty(),
-      this.description.orEmpty(),
-      this.image.orEmpty(),
-      this.rating!.toDomain()
+      id.notZero(),
+      title.orEmpty(),
+      price.notZero(),
+      category.orEmpty(),
+      description.orEmpty(),
+      image.orEmpty(),
+      rating!.toDomain()
   );
+
+
+}
+extension ProductExtension on Product {
+  ProductResponse toData() => ProductResponse(
+      id.notZero(),
+      title.orEmpty(),
+      price.notZero(),
+      category.orEmpty(),
+      description.orEmpty(),
+      image.orEmpty(),
+      rating.toData()
+  );
+
+
+}
+extension RatingExtension on Rating{
+  RatingResponse toData() => RatingResponse( count.notZero() , rate.notZero());
 }
 extension RatingResponseExtension on RatingResponse{
-  Rating toDomain() => Rating(this.rate.notZero() , this.count.notZero()
+  Rating toDomain() => Rating(rate.notZero() , count.notZero()
   );
 }
 extension AllProductResponseExtension on List<ProductResponse>? {

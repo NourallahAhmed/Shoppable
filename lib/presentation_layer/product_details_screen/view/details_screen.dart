@@ -225,7 +225,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       width: double.infinity,
                       child: ElevatedButton(
                           onPressed: () {
-                            print("added");
+                            _productDetailsViewModel.addToCart(snapShot.data!);
                           },
                           child: Text(AppStrings.addToCart)),
                     )

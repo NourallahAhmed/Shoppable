@@ -32,7 +32,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<SliderObjectView>(
-        stream: _viewModel.onboardingOutputs ,   /// listen to the stream
+        stream: _viewModel.onBoardingOutputs ,   /// listen to the stream
         builder: (context , snapshot){
           return _getOnboardingContent(snapshot.data);
         });

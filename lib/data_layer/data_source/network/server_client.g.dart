@@ -132,6 +132,41 @@ class _ServerClient implements ServerClient {
     return value;
   }
 
+  @override
+  Future<List<AdResponse>> addToCart(
+    productResponse,
+    email,
+    userName,
+    phone,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = {
+      'product': productResponse,
+      'email': email,
+      'user_name': userName,
+      'phone': phone,
+    };
+    final _result = await _dio
+        .fetch<List<dynamic>>(_setStreamType<List<AdResponse>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'cart',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    var value = _result.data!
+        .map((dynamic i) => AdResponse.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

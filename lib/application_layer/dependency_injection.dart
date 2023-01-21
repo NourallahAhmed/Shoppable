@@ -1,3 +1,6 @@
+import 'package:Shoppable/application_layer/database_helper.dart';
+import 'package:Shoppable/domain_layer/usecase/cart_usecase/cart_usecase.dart';
+import 'package:Shoppable/presentation_layer/cart_screen/view_model/cart_view_model.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -21,10 +24,20 @@ import '../presentation_layer/forgetpassword_screen/view_model/forget_password_v
 import '../presentation_layer/home_screen/view_model/home_view_model.dart';
 import '../presentation_layer/product_details_screen/view_model/product_details_view_model.dart';
 import 'app_pref.dart';
+import 'package:sqflite/sqflite.dart';
 
 var instance = GetIt.instance;
 
+
+
 Future<void> initAppModule() async {
+  ///DataBase
+  var db =  await DataBaseHelper.dataBaseHelper.database;
+
+
+  instance.registerLazySingleton<Database>(() => db);
+  instance.registerLazySingleton<DataBaseHelper>(() => DataBaseHelper.dataBaseHelper);
+
   /// adding shared perf
   var sharedPref = await SharedPreferences.getInstance();
 
@@ -55,7 +68,9 @@ Future<void> initAppModule() async {
 
   ///base remote
   instance.registerLazySingleton<BaseRemoteDataSource>(() => RemoteDataSource(
-      instance<ServerClient>(), instance<StoreServerClient>()));
+      instance<ServerClient>(),
+      instance<StoreServerClient>(),
+      instance<AppPreferences>()));
 
   /// repo
   instance.registerLazySingleton(() =>
@@ -140,6 +155,18 @@ initDetailsScreen(String id) {
   } else {
     GetIt.I.unregister<ProductDetailsViewModel>();
     instance.registerFactory<ProductDetailsViewModel>(
-            () => ProductDetailsViewModel(instance<ProductDetailsUseCase>(), id));
+        () => ProductDetailsViewModel(instance<ProductDetailsUseCase>(), id));
+  }
+}
+
+
+initCartScreen() {
+  if (!GetIt.I.isRegistered<CartUseCase>()) {
+    instance.registerFactory<CartUseCase>(
+        () => CartUseCase(instance<Repository>()));
+
+    ///  view model
+    instance.registerFactory<CartViewModel>(
+        () => CartViewModel(instance<CartUseCase>() ));
   }
 }

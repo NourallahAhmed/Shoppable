@@ -3,6 +3,9 @@
 import 'dart:async';
 
 import 'dart:io';
+import 'package:Shoppable/application_layer/app_pref.dart';
+import 'package:Shoppable/application_layer/dependency_injection.dart';
+
 import '/domain_layer/usecase/register_usecase/register_usecase.dart';
 import '/presentation_layer/common/state_randerer/state_renderer.dart';
 import '/presentation_layer/common/state_randerer/state_renderer_impl.dart';
@@ -262,6 +265,7 @@ class RegisterViewModel extends BaseViewModel
           inputFlowState.add(ErrorState(stateRendererType: StateRendererType.popupErrorState, message: l.message))
     }, (r)  {
           inputFlowState.add(ContentState());
+          instance<AppPreferences>().setUserData(_registerObject.email, _registerObject.userName, _registerObject.phone);
           isRegisteredSuccessfullyStreamController.add(true);
     });
   }

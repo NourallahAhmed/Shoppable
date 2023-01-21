@@ -1,4 +1,5 @@
 
+import 'package:Shoppable/data_layer/models/response_model/store_response.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import '../../../application_layer/api_constants.dart';
@@ -34,6 +35,17 @@ abstract class ServerClient {
 
   @GET(ApiConstants.ads)
   Future<List<AdResponse>> getAds();
+
+
+  @GET(ApiConstants.cart)
+  Future<List<AdResponse>> addToCart(
+
+      @Field("product") ProductResponse productResponse,
+      @Field("email") String email,
+      @Field("user_name") String userName,
+      @Field("phone") String phone,
+
+      );
 
 
 

@@ -32,6 +32,8 @@ class RoutesManager {
     switch (settings.name) {
       case(Routes.mainScreen):
         initHomeModule();
+        initCartScreen();
+
         return MaterialPageRoute(builder: (_) => const MainView());
 
       case (Routes.splashScreen):
@@ -54,8 +56,6 @@ class RoutesManager {
         initHomeModule();
         return MaterialPageRoute(builder: (_) => const HomeScreen());
       case (Routes.detailsScreen):
-
-        print("id from routesManger = $_id");
 
         initDetailsScreen(_id);
         return MaterialPageRoute(builder: (_) => const DetailsScreen());

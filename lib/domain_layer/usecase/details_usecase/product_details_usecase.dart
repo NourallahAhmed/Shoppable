@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:Shoppable/data_layer/models/response_model/store_response.dart';
 import 'package:dartz/dartz.dart';
 import '/data_layer/data_source/network/failure.dart';
 import '/domain_layer/model/product_model.dart';
@@ -15,8 +16,12 @@ class ProductDetailsUseCase extends BaseUseCase<String , Product> {
 
   @override
   Future<Either<Failure, Product>> execute(String id) async{
-    print("is from usecase = $id");
-   return await _repository.getProductDetails(id);
+       return await _repository.getProductDetails(id);
+  }
+
+  void addToCart(Product product) async {
+    await _repository.addToCart(product);
+
   }
 
 

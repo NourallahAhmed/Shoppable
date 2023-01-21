@@ -1,4 +1,6 @@
+import 'package:Shoppable/application_layer/database_helper.dart';
 import 'package:dartz/dartz.dart';
+import '../../application_layer/dependency_injection.dart';
 import '/data_layer/data_source/network/failure.dart';
 import '/data_layer/data_source/remote_data_source/remote_data_source.dart';
 import '/data_layer/models/mappers/ads_mappers.dart';
@@ -230,6 +232,36 @@ class Repository implements BaseRepository{
     }else{
       return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
     }
+  }
+
+  @override
+  Future addToCart(Product product) async {
+
+    await instance<DataBaseHelper>().insertOrder(product);
+
+
+    // if (await _networkChecker.isConnected){
+    //   try{
+    //     final reponse = await _baseRemoteDataSource.addToCart(product.toData());
+    //
+    //     if (reponse != null) {
+    //       return Right(reponse.toDomain());
+    //     } else {
+    //       return Left(
+    //           Failure(ApiInternalStatus.SUCCESS, ResponseMessage.DEFAULT));
+    //     }
+    //   }catch(error){
+    //     print("error ${error}");
+    //     return Left(DataSource.DEFAULT.getFailure());
+    //   }
+    // }else{
+    //   return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+    // }
+  }
+
+  @override
+  Future<List<Product>> getCart() async {
+   return await instance<DataBaseHelper>().getAllOrder();
   }
 
 }

@@ -7,7 +7,7 @@ import '../../resources/image_manager.dart';
 import '../../resources/strings_manager.dart';
 
 class OnboardingViewModel extends BaseViewModel
-    with OnboardingViewModelInputs, OnboardingViewModelOutputs {
+    with OnBoardingViewModelInputs, OnBoardingViewModelOutputs {
   final StreamController _streamController =
       StreamController<SliderObjectView>();
 
@@ -47,11 +47,11 @@ class OnboardingViewModel extends BaseViewModel
   }
 
   @override
-  Sink get onboardingInputs => _streamController.sink;
+  Sink get onBoardingInputs => _streamController.sink;
 
   @override
-  Stream<SliderObjectView> get onboardingOutputs =>
-      _streamController.stream.map((sliderObjectview) => sliderObjectview);
+  Stream<SliderObjectView> get onBoardingOutputs =>
+      _streamController.stream.map((sliderObjectView) => sliderObjectView);
 
   ///MARK: private functions
   List<SliderObject> _getList() {
@@ -71,7 +71,7 @@ class OnboardingViewModel extends BaseViewModel
     ];
   }
 
-  _postDataToView() => onboardingInputs
+  _postDataToView() => onBoardingInputs
       .add(
           SliderObjectView(
               _list[_currentPage],
@@ -80,16 +80,16 @@ class OnboardingViewModel extends BaseViewModel
         );
 }
 
-abstract class OnboardingViewModelInputs {
+abstract class OnBoardingViewModelInputs {
   int nextPage();
 
   int previousPage();
 
   void onPageChange(int index);
 
-  Sink get onboardingInputs;
+  Sink get onBoardingInputs;
 }
 
-abstract class OnboardingViewModelOutputs {
-  Stream<SliderObjectView> get onboardingOutputs;
+abstract class OnBoardingViewModelOutputs {
+  Stream<SliderObjectView> get onBoardingOutputs;
 }

@@ -12,6 +12,7 @@ class JsonManager{
   static String loadingJson = "${baseJsonURL}/loading.json";
   static String errorJson = "${baseJsonURL}/error.json";
   static String successJson = "${baseJsonURL}/success.json";
+  // static String successJson = "${baseJsonURL}/success.json";
 }
 class IconManager{
   static IconData shopingCart =  Icons.shopping_bag_outlined;

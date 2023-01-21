@@ -2,6 +2,7 @@ class ApiConstants{
   static const String baseUrl = "https://shoppable.mocklab.io/";
   static const String storeBaseUrl = "https://fakestoreapi.com/";
   static const String ads = "ads";
+  static const String cart = "cart";
 
   static const String allProducts = "products/";
   static const String sortDesc = "/products?sort=desc";

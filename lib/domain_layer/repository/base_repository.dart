@@ -17,4 +17,6 @@ abstract class BaseRepository{
   Future<Either<Failure , List<Product>>> getElectronicsProducts ();
   Future<Either<Failure , List<AdsModel>>> getAds ();
   Future<Either<Failure , Product>> getProductDetails (String id);
+  Future addToCart (Product product);
+  Future<List<Product>> getCart ();
 }

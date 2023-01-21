@@ -22,8 +22,6 @@ class ProductDetailsViewModel extends BaseViewModel
 
   @override
   void start() async {
-
-    print("id ViewModel = ${id}");
     inputFlowState.add(LoadingState(
         stateRendererType: StateRendererType.fullScreenLoadingState));
 
@@ -44,10 +42,17 @@ class ProductDetailsViewModel extends BaseViewModel
   @override
   Stream<Product> get productDetailsOutputs => _productStreamController.stream.map((event) => event);
 
+  @override
+  void addToCart(Product product) {
+    _productDetailsUseCase.addToCart(product);
+  }
+
 }
 
 abstract class ProductDetailsViewModelInputs {
   Sink get productDetailsInputs;
+  void addToCart(Product product);
+
 }
 
 abstract class ProductDetailsViewModelOutputs {

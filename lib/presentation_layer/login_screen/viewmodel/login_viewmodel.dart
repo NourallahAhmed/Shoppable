@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:Shoppable/application_layer/extensions.dart';
+
 import '/presentation_layer/common/frezzed_data_classes.dart';
 import '/presentation_layer/common/state_randerer/state_renderer.dart';
 import '/presentation_layer/common/state_randerer/state_renderer_impl.dart';
@@ -55,6 +57,7 @@ class LoginViewModel extends BaseViewModel
             (r) {
               isLoggedInSuccessfullyStreamController.add(true);
               _appPreferences.setUserLoggedIn();
+              _appPreferences.setUserData(r.contacts!.email.orEmpty() , r.customer!.name.orEmpty() , r.contacts!.phone.orEmpty());
               }
     );
   }
