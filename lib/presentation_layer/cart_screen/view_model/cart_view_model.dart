@@ -29,10 +29,16 @@ class CartViewModel extends BaseViewModel with CartViewModelInput , CartViewMode
   @override
   // TODO: implement cartOutput
   Stream<List<Product>> get cartOutput => cartStream.stream.map((listOfCart) => listOfCart);
+
+  @override
+  void deleteItem(Product product) {
+    _cartUseCase.deleteItem(product);
+  }
 }
 
 abstract class CartViewModelInput{
   Sink get cartInput;
+  void deleteItem(Product product);
 }
 abstract class CartViewModelOutput{
   Stream<List<Product>> get cartOutput;

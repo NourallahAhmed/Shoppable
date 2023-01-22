@@ -74,7 +74,7 @@ Future<void> initAppModule() async {
 
   /// repo
   instance.registerLazySingleton(() =>
-      Repository(instance<BaseRemoteDataSource>(), instance<NetworkChecker>()));
+      Repository(instance<BaseRemoteDataSource>(), instance<NetworkChecker>() , instance<DataBaseHelper>()));
 }
 
 initLoginModule() {

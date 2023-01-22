@@ -19,4 +19,6 @@ abstract class BaseRepository{
   Future<Either<Failure , Product>> getProductDetails (String id);
   Future addToCart (Product product);
   Future<List<Product>> getCart ();
+
+  Future deleteProductFromCart(Product product);
 }

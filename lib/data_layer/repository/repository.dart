@@ -18,8 +18,8 @@ import '../data_source/network/network_checker.dart';
 class Repository implements BaseRepository{
   final BaseRemoteDataSource _baseRemoteDataSource;
   final NetworkChecker _networkChecker;
-
-  Repository(this._baseRemoteDataSource, this._networkChecker);
+  final DataBaseHelper _dataBaseHelper;
+  Repository(this._baseRemoteDataSource, this._networkChecker , this._dataBaseHelper);
 
   @override
   Future<Either<Failure, Authentication>> login(LoginRequest loginRequest) async {
@@ -261,7 +261,12 @@ class Repository implements BaseRepository{
 
   @override
   Future<List<Product>> getCart() async {
-   return await instance<DataBaseHelper>().getAllOrder();
+   return await _dataBaseHelper.getAllOrder();
+  }
+
+  @override
+  Future deleteProductFromCart(Product product) async {
+    await _dataBaseHelper.deleteProductFromCart(product);
   }
 
 }

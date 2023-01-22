@@ -16,4 +16,9 @@ class CartUseCase extends BaseUseCase<void ,List<Product>>{
    return Right (await repository.getCart());
   }
 
+  Future deleteItem(Product product) async {
+
+    await repository.deleteProductFromCart(product);
+  }
+
 }

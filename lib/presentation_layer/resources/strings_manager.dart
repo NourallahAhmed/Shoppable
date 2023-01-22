@@ -60,4 +60,6 @@ class AppStrings{
   static const String xLarge = "xl";
   static const String xxLarge = "xxl";
 
+  static const String delete = "Delete";
+
 }

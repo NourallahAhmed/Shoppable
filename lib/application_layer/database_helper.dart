@@ -85,4 +85,8 @@ class DataBaseHelper {
     print("products = $products");
     return products;
   }
+
+  Future deleteProductFromCart(Product product)  async{ 
+    await instance<Database>().rawDelete('DELETE FROM $_tableName WHERE $_idColumn = ?', [product.id]);
+  }
 }
